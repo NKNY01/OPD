@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>รายงานปัญหาหุ่นยนต์จ่ายยา OPD – รพ.นครนายก</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;font:400 15px "Noto Sans Thai",sans-serif;background:#F1F7F6;color:#12302F}
+.w{max-width:1100px;margin:0 auto;padding:20px}.c{background:#fff;border:1px solid #D5E5E3;border-radius:16px;padding:20px}
+.g{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.k{font-size:13px;color:#4F6B69}.v{font-size:32px;font-weight:700}
+.b{min-height:44px;padding:0 18px;border-radius:12px;border:1px solid #0F766E;font:500 15px inherit;font-family:inherit;cursor:pointer;background:#fff;color:#0F766E}.b.p{background:#0F766E;color:#fff}
+.tab{border:0;background:none;color:#4F6B69}.tab.on{background:#0F766E;color:#fff}
+input,select,textarea{width:100%;min-height:44px;border:1px solid #B9D0CD;border-radius:12px;padding:10px 14px;font:inherit;background:#fff;color:#12302F}
+label.l{display:block;font-weight:500;margin:14px 0 6px}.bars{display:flex;gap:4px;align-items:flex-end;height:170px;border-bottom:1px solid #D5E5E3}
+.bar{flex:1;background:#7CC4BC;border-radius:4px 4px 0 0;min-height:2px}.lb{display:flex;gap:4px;font-size:10px;color:#4F6B69}.lb span{flex:1;text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chips label{position:relative;border:1px solid #B9D0CD;border-radius:99px;padding:8px 14px;cursor:pointer;background:#fff}
+.chips label:has(input:checked){background:#0F766E;color:#fff}.chips label:focus-within{outline:2px solid #0F766E}.chips input{position:absolute;opacity:0;width:1px;min-height:0}
+.t{display:flex;gap:12px;padding:10px 0;border-top:1px solid #E3EEEC;align-items:center}.row{display:flex;gap:8px;margin-bottom:8px}
+.ov{position:fixed;inset:0;background:#F1F7F6;display:flex;align-items:center;justify-content:center;z-index:9}.hide{display:none!important}
+.ph{display:none}#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#12302F;color:#fff;padding:12px 20px;border-radius:12px}
+@media print{.noprint{display:none!important}.ph{display:block;margin-bottom:12px}body{background:#fff}.c{break-inside:avoid}}
+</style></head><body>
+<div id="lock" class="ov"><form id="lf" class="c" style="width:min(360px,90vw)"><b style="font-size:18px">ห้องจ่ายยา OPD รพ.นครนายก</b><label class="l" for="pin">รหัส PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off"><div id="pe" class="k" style="color:#B42318;margin:8px 0"></div><button class="b p" style="width:100%">เข้าใช้งาน</button></form></div>
+<div class="w">
+<header class="noprint" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#0F766E"/><rect x="9" y="14" width="22" height="12" rx="6" fill="none" stroke="#fff" stroke-width="2.5" transform="rotate(-35 20 20)"/><path d="M16 12l8 16" stroke="#fff" stroke-width="2.5" transform="rotate(-35 20 20)"/></svg>
+<div style="flex:1;min-width:220px"><div style="font-size:20px;font-weight:700">ระบบรายงานปัญหาหุ่นยนต์จ่ายยา</div><div class="k">ห้องจ่ายยา OPD · โรงพยาบาลนครนายก</div></div>
+<button class="b" onclick="pdf()">ส่งออก PDF</button><button class="b p" onclick="nav('form')">+ แจ้งปัญหาใหม่</button></header>
+<div id="cfg" class="c noprint hide" style="margin-top:12px;background:#FBEBC8">โหมดตัวอย่าง: ยังไม่ได้ใส่ลิงก์ Apps Script (ข้อมูลที่เห็นเป็นข้อมูลสุ่ม)</div>
+<nav class="noprint" style="display:flex;gap:4px;background:#fff;border:1px solid #D5E5E3;border-radius:12px;padding:4px;margin:16px 0;width:max-content;max-width:100%;flex-wrap:wrap">
+<button class="b tab on" data-v="dash">ภาพรวม</button><button class="b tab" data-v="form">แจ้งปัญหา</button><button class="b tab" data-v="types">จัดการประเภท</button></nav>
+
+<section id="v-dash">
+<div class="ph"><b style="font-size:20px">รายงานสรุปปัญหาหุ่นยนต์จ่ายยา ห้องจ่ายยา OPD โรงพยาบาลนครนายก</b><div id="pd" class="k"></div></div>
+<div class="noprint" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
+<div style="display:flex;background:#fff;border:1px solid #D5E5E3;border-radius:12px;padding:4px"><button class="b tab m" data-m="day">รายวัน</button><button class="b tab m on" data-m="month">รายเดือน</button><button class="b tab m" data-m="year">รายปี</button></div>
+<input id="pv" style="width:180px" aria-label="ช่วงเวลา"></div>
+<h2 id="pl" style="margin:0 0 12px"></h2>
+<div class="g" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:16px"><div class="c"><div class="k">ปัญหาทั้งหมด</div><div class="v" id="k1"></div></div><div class="c"><div class="k">เฉลี่ยต่อวัน</div><div class="v" id="k2"></div></div><div class="c"><div class="k">ยังไม่ได้แก้ไข</div><div class="v" id="k3" style="color:#B42318"></div></div></div>
+<div class="g"><div class="c"><b id="ct"></b><div class="bars" id="bars" style="margin-top:14px"></div><div class="lb" id="lb"></div></div><div class="c"><b>ประเภทปัญหาที่พบบ่อย</b><div id="cat" style="margin-top:12px"></div></div></div>
+<div class="c" style="margin-top:16px"><b>รายงานในช่วงนี้</b><div id="rl"></div></div></section>
+
+<section id="v-form" class="hide"><form id="f" class="c" style="max-width:720px"><h2 style="margin:0">แจ้งปัญหาการใช้งานหุ่นยนต์</h2>
+<label class="l" for="by">ชื่อผู้แจ้ง</label><input id="by" name="by" required>
+<label class="l" for="at">วัน-เวลาที่พบ</label><input id="at" name="at" type="datetime-local" required>
+<label class="l">ประเภทปัญหา</label><div class="chips" id="chips"></div>
+<label class="l" for="place">ตำแหน่ง/ช่องที่เกิดปัญหา (ถ้ามี)</label><input id="place" name="place">
+<label class="l" for="fix">แก้ไขอย่างไร</label><select id="fix" name="fix"><option>ยังไม่ได้แก้ไข</option><option>รีสตาร์ทเครื่อง</option><option>แก้ไขเอง</option><option>เรียกช่าง</option></select>
+<label class="l" for="note">รายละเอียดเพิ่มเติม</label><textarea id="note" name="note" rows="3"></textarea>
+<div style="text-align:right;margin-top:16px"><button class="b p">ส่งรายงาน</button></div></form></section>
+
+<section id="v-types" class="hide"><div class="c" style="max-width:720px"><h2 style="margin:0 0 4px">จัดการประเภทปัญหา</h2><div class="k" style="margin-bottom:12px">การแก้ชื่อไม่เปลี่ยนรายงานเก่า (รายงานเก่ายังแสดงชื่อเดิม) · ต้องใช้รหัสผู้ดูแลตอนบันทึก</div>
+<div id="tl"></div><div class="row"><input id="nt" placeholder="พิมพ์ประเภทใหม่…" aria-label="ประเภทใหม่"><button class="b" id="ad">+ เพิ่ม</button></div>
+<div style="text-align:right;margin-top:12px"><button class="b p" id="sv">บันทึกประเภท</button></div></div></section>
+</div><div id="toast" class="hide" role="status"></div>
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbwrTIQoDl219hYJAkhC7IG3UPK6s3u-picfxueBLuX5xrDZt9uCnLPajBL1rqb7SCeqsA/exec"; 
+const $=s=>document.querySelector(s),S=sessionStorage,z=x=>String(x).padStart(2,"0"),
+TH=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],
+esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let D={types:[],reports:[]},T=[],mode="month";
+function demo(b){if(!D.types.length&&!b){D.types=["สายพานดัง","ไฟตู้จัดยาค้าง","จัดยาเสร็จแล้วแต่ตะกร้าไม่ดันออก","อื่น ๆ"];
+for(let i=0;i<45;i++){const d=new Date(Date.now()-Math.random()*60*864e5);D.reports.push({at:`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(8+Math.floor(Math.random()*8))}:00`,by:"ตัวอย่าง",type:D.types[Math.floor(Math.random()*3)],fix:["รีสตาร์ทเครื่อง","เรียกช่าง","แก้ไขเอง","ยังไม่ได้แก้ไข"][Math.floor(Math.random()*4)],place:"",note:""})}}
+if(b&&b.action=="addReport")D.reports.push(b.report);if(b&&b.action=="saveTypes")D.types=b.types;return D}
+async function api(b){if(!API_URL)return demo(b);try{const r=await fetch(b?API_URL:API_URL+"?pin="+encodeURIComponent(S.pin||""),b?{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({...b,pin:S.pin})}:{});return await r.json()}catch(e){return{error:"net"}}}
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.remove("hide");setTimeout(()=>e.classList.add("hide"),3000)}
+async function load(){const j=await api();if(j.error){$("#pe").textContent=j.error=="net"?"เชื่อมต่อไม่ได้ ลองใหม่":"รหัส PIN ไม่ถูกต้อง";$("#lock").classList.remove("hide");return false}
+D=j;$("#lock").classList.add("hide");$("#chips").innerHTML=D.types.map(t=>`<label><input type=radio name=type value="${esc(t)}" required>${esc(t)}</label>`).join("");render();return true}
+$("#lf").onsubmit=async e=>{e.preventDefault();S.pin=$("#pin").value;await load()};
+function nav(v){["dash","form","types"].forEach(x=>$("#v-"+x).classList.toggle("hide",x!=v));document.querySelectorAll(".tab[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v==v));
+if(v=="types"){T=[...D.types];rt()}if(v=="form"&&!$("#at").value)setNow()}
+document.querySelectorAll(".tab[data-v]").forEach(b=>b.onclick=()=>nav(b.dataset.v));
+function setNow(){const n=new Date();$("#at").value=`${n.getFullYear()}-${z(n.getMonth()+1)}-${z(n.getDate())}T${z(n.getHours())}:${z(n.getMinutes())}`;$("#by").value=localStorage.by||""}
+function setMode(m){mode=m;document.querySelectorAll(".m").forEach(b=>b.classList.toggle("on",b.dataset.m==m));const p=$("#pv"),n=new Date(),y=n.getFullYear(),mm=z(n.getMonth()+1);
+p.type=m=="year"?"number":m;p.value=m=="day"?`${y}-${mm}-${z(n.getDate())}`:m=="month"?`${y}-${mm}`:y;render()}
+document.querySelectorAll(".m").forEach(b=>b.onclick=()=>setMode(b.dataset.m));$("#pv").onchange=render;
+function render(){const v=String($("#pv").value||"");if(!v)return;const [y,m,d]=v.split("-").map(Number),now=new Date(),
+label=mode=="day"?`${d} ${TH[m-1]} ${y+543}`:mode=="month"?`${TH[m-1]} ${y+543}`:`ปี ${y+543}`,
+R=D.reports.filter(r=>String(r.at).startsWith(v)),n=R.length;
+let days=mode=="day"?1:mode=="month"?(y==now.getFullYear()&&m==now.getMonth()+1?now.getDate():new Date(y,m,0).getDate()):(y==now.getFullYear()?Math.ceil((now-new Date(y,0,1))/864e5):365);
+$("#pl").textContent="สรุป"+{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]+" · "+label;$("#pd").textContent=label+" · พิมพ์เมื่อ "+now.toLocaleDateString("th-TH");
+$("#k1").textContent=n;$("#k2").textContent=(n/days).toFixed(1);$("#k3").textContent=R.filter(r=>r.fix=="ยังไม่ได้แก้ไข").length;
+const keys=mode=="day"?[...Array(24).keys()]:mode=="month"?[...Array(new Date(y,m,0).getDate()).keys()].map(i=>i+1):[...Array(12).keys()].map(i=>i+1),
+cnt=keys.map(k=>R.filter(r=>{const a=String(r.at);return +(mode=="day"?a.slice(11,13):mode=="month"?a.slice(8,10):a.slice(5,7))==k}).length),mx=Math.max(1,...cnt);
+$("#ct").textContent="จำนวนปัญหา"+{day:"รายชั่วโมง",month:"รายวัน",year:"รายเดือน"}[mode];
+$("#bars").innerHTML=cnt.map((c,i)=>`<div class=bar title="${c} ครั้ง" style="height:${c/mx*100}%${c==mx&&c?";background:#0F766E":""}"></div>`).join("");
+$("#lb").innerHTML=keys.map(k=>`<span>${mode=="year"?TH[k-1]:k}</span>`).join("");
+const tc={};R.forEach(r=>tc[r.type]=(tc[r.type]||0)+1);const ts=Object.entries(tc).sort((a,b)=>b[1]-a[1]);
+$("#cat").innerHTML=ts.length?ts.map(([t,c])=>`<div class=k style="margin-top:10px">${esc(t)} · ${c}</div><div style="height:10px;border-radius:6px;background:#0F766E;width:${c/ts[0][1]*100}%"></div>`).join(""):'<div class=k>ยังไม่มีรายงานในช่วงนี้</div>';
+$("#rl").innerHTML=R.sort((a,b)=>String(b.at)<String(a.at)?-1:1).slice(0,15).map(r=>{const a=String(r.at);return `<div class=t><span class=k style="width:130px">${a.slice(8,10)}/${a.slice(5,7)}/${+a.slice(0,4)+543} ${a.slice(11,16)}</span><span style="flex:1">${esc(r.type)}${r.place?" · "+esc(r.place):""}${r.note?'<div class=k>'+esc(r.note)+"</div>":""}</span><span class=k>${esc(r.by)}</span><span class=k>${esc(r.fix)}</span></div>`}).join("")||'<div class=k style="margin-top:8px">ไม่มีรายงาน</div>'}
+$("#f").onsubmit=async e=>{e.preventDefault();const r=Object.fromEntries(new FormData(e.target));localStorage.by=r.by;const j=await api({action:"addReport",report:r});
+if(j.error)return toast("ส่งไม่สำเร็จ ลองใหม่อีกครั้ง");e.target.reset();toast("บันทึกรายงานแล้ว");await load();nav("dash")};
+function rt(){$("#tl").innerHTML=T.map((t,i)=>`<div class=row><input value="${esc(t)}" data-i=${i} aria-label="ชื่อประเภท"><button class=b data-d=${i}>ลบ</button></div>`).join("")}
+$("#tl").oninput=e=>{if(e.target.dataset.i)T[e.target.dataset.i]=e.target.value};$("#tl").onclick=e=>{if(e.target.dataset.d){T.splice(e.target.dataset.d,1);rt()}};
+$("#ad").onclick=()=>{const v=$("#nt").value.trim();if(v){T.push(v);$("#nt").value="";rt()}};
+$("#sv").onclick=async()=>{const a=prompt("รหัสผู้ดูแล");if(!a)return;const j=await api({action:"saveTypes",adminPin:a,types:T.filter(x=>x.trim())});
+if(j.error)return toast(j.error=="admin"?"รหัสผู้ดูแลไม่ถูกต้อง":"บันทึกไม่สำเร็จ");toast("บันทึกประเภทแล้ว");await load()};
+function pdf(){nav("dash");setTimeout(()=>print(),100)}
+if(!API_URL)$("#cfg").classList.remove("hide");setMode("month");(async()=>{if(!API_URL){S.pin="x";await load()}else if(S.pin&&await load()){}})();
+</script></body></html>
