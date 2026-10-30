@@ -8,7 +8,7 @@
 :root[data-theme=dark]{--bg:#0A1620;--card:#112232;--bd:#213548;--hl:#18293A;--tx:#E8F0F7;--mu:#9DB4C8;--pr:#8CB2D5;--pd:#8CB2D5;--sel:#8CB2D5;--selt:#0A1C2C;--ac:#17304A;--soft:#3A6283;--hi:#8CB2D5;--bad:#FF9A8B;--badbg:#3A1E1E;--warn:#F2C26B;--warnbg:#3A2E12;color-scheme:dark}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;font:400 15px/1.55 var(--sans);background:var(--bg);color:var(--tx);font-variant-numeric:tabular-nums}
-main{max-width:760px;margin:0 auto;padding:16px 16px 108px}
+main{max-width:1800px;margin:0 auto;padding:16px 16px 108px}
 h1{font:700 22px/1.2 var(--sans);margin:0}h2{font:600 17px/1.3 var(--sans);margin:0}b{font-weight:600}
 section{display:flex;flex-direction:column;gap:16px}.hide{display:none!important}
 .k{font-size:12.5px;color:var(--mu)}.l{display:block;font-size:14px;font-weight:500;margin:18px 0 6px}.req::after{content:" *";color:var(--bad)}
@@ -59,12 +59,16 @@ input,select,textarea{width:100%;min-height:48px;border:1px solid var(--bd);bord
 #nav button.on{color:var(--pd);font-weight:600}#nav button.on::before{content:"";position:absolute;top:-10px;width:30px;height:3px;border-radius:0 0 3px 3px;background:var(--pd)}
 #toast{position:fixed;bottom:calc(92px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--sel);color:var(--selt);padding:12px 20px;border-radius:99px;z-index:10;max-width:calc(100% - 32px);box-shadow:0 12px 30px -10px rgba(0,0,0,.5);animation:pop .3s both}.ph{display:none}
 @media(max-width:600px){.ov:not(#lock){align-items:flex-end;padding:0}.ov:not(#lock) .c{width:100%;border-radius:24px 24px 0 0;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px));animation-name:sheet}}
-@media(min-width:900px){#nav{top:0;bottom:auto;height:64px;padding:0 24px;justify-content:center;gap:8px;border-top:0;border-bottom:1px solid var(--bd)}#nav .logo{display:block;position:absolute;left:24px;top:6px}#nav button{flex-direction:row;gap:8px;min-width:0;min-height:44px;padding:0 18px;font-size:14px}#nav button.on{background:var(--ac)}#nav button.on::before{display:none}body{padding-top:64px}main{padding:28px 16px 40px}.lg0{display:none!important}.fa{bottom:16px}#toast{bottom:28px}}
+@media(min-width:900px){#nav{top:0;bottom:auto;height:64px;padding:0 24px;justify-content:center;gap:8px;border-top:0;border-bottom:1px solid var(--bd)}#nav .logo{display:block;position:absolute;left:24px;top:6px}#nav button{flex-direction:row;gap:8px;min-width:0;min-height:44px;padding:0 18px;font-size:14px}#nav button.on{background:var(--ac)}#nav button.on::before{display:none}body{padding-top:64px}main{padding:28px clamp(24px,4vw,64px) 48px}.lg0{display:none!important}.fa{bottom:16px}#toast{bottom:28px}}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}}@keyframes grow{from{transform:scaleY(0)}}@keyframes fill{from{transform:scaleX(0)}}@keyframes draw{from{stroke-dasharray:0 100}}@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}@keyframes sheet{from{transform:translateY(100%)}}
 section:not(.hide)>*{animation:rise .5s cubic-bezier(.2,.7,.2,1) both}section>*:nth-child(n+3){animation-delay:.05s}section>*:nth-child(n+5){animation-delay:.1s}section>*:nth-child(n+7){animation-delay:.15s}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{#nav,.noprint{display:none!important}body{padding:0;background:#fff}.ph{display:block;margin-bottom:12px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}.c{break-inside:avoid}}
 body.pdfm{padding:0!important;background:#fff}.pdfm *,.pdfm *::before,.pdfm *::after{animation:none!important;transition:none!important}.pdfm .ph{display:block;margin-bottom:12px}.pdfm .noprint{display:none!important}.pdfm .bars{height:140px}.pdfm .cd{height:36px}.pdfm .lg{margin:4px 0}.pdfm .st4{grid-template-columns:repeat(4,1fr)}
+.cd{max-width:60px;width:100%;justify-self:center}
+@media(min-width:960px){#v-day{display:grid;grid-template-columns:minmax(380px,5fr) 7fr;gap:20px 32px;align-items:start}#v-day>*{grid-column:1}#v-day>div:nth-child(5){grid-column:2;grid-row:1/span 6}
+#v-hist{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}#v-hist>.c:first-child{position:sticky;top:88px}#f{width:100%;margin-inline:auto}}
+@media(min-width:1100px){.g1{grid-template-columns:2fr 1fr}.g2{grid-template-columns:1fr 1.5fr}.bars{height:230px}}
 </style></head><body>
 <div id="lock" class="ov"><form id="lf" class="c"><img data-logo class="lgi" width="96" height="96" alt="โลโก้โรงพยาบาลนครนายก" style="display:block;margin:0 auto 10px"><b style="font-size:18px">ห้องจ่ายยา OPD รพ.นครนายก</b><label class="l" for="pin">รหัส PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off"><div id="pe" class="k" style="color:var(--bad);margin:8px 0"></div><button class="b p" style="width:100%">เข้าใช้งาน</button></form></div>
 <nav id="nav" class="noprint"></nav>
@@ -83,8 +87,8 @@ body.pdfm{padding:0!important;background:#fff}.pdfm *,.pdfm *::before,.pdfm *::a
 <div class="noprint ctl"><div class="seg"><button class="b m" data-m="day">วัน</button><button class="b m on" data-m="month">เดือน</button><button class="b m" data-m="year">ปี</button></div><input id="pv" style="width:170px" aria-label="ช่วงเวลา"></div>
 <h2 id="pl"></h2>
 <div class="st4"><div><div class="k">ปัญหาทั้งหมด</div><div class="v" id="k1"></div></div><div><div class="k">แก้ไขเรียบร้อย</div><div class="v ok" id="k2"></div></div><div><div class="k">ยังไม่ได้แก้ไข</div><div class="v bad" id="k3"></div></div><div><div class="k">เรียกช่างแล้ว (รอ Service)</div><div class="v warn" id="k4"></div></div></div>
-<div class="g"><div class="c"><b id="ct"></b><div class="bars" id="bars"></div><div class="lb" id="lb"></div></div><div class="c"><b>สัดส่วนประเภทปัญหา</b><div class="dn" id="dn" style="margin-top:12px"></div></div></div>
-<div class="g"><div class="c"><div style="display:flex;align-items:center;gap:8px"><b id="cmn" style="flex:1"></b><button class="b ic noprint" id="cp" aria-label="เดือนก่อนหน้า">‹</button><button class="b ic noprint" id="cn" aria-label="เดือนถัดไป">›</button></div><div class="cg" id="cg"></div><div class="k" id="cs" style="margin-top:10px"></div></div>
+<div class="g g1"><div class="c"><b id="ct"></b><div class="bars" id="bars"></div><div class="lb" id="lb"></div></div><div class="c"><b>สัดส่วนประเภทปัญหา</b><div class="dn" id="dn" style="margin-top:12px"></div></div></div>
+<div class="g g2"><div class="c"><div style="display:flex;align-items:center;gap:8px"><b id="cmn" style="flex:1"></b><button class="b ic noprint" id="cp" aria-label="เดือนก่อนหน้า">‹</button><button class="b ic noprint" id="cn" aria-label="เดือนถัดไป">›</button></div><div class="cg" id="cg"></div><div class="k" id="cs" style="margin-top:10px"></div></div>
 <div class="c"><b>โอกาสเกิดของแต่ละปัญหา</b><div class="k" id="lkn" style="margin-bottom:6px"></div><div id="lk"></div></div></div></section>
 
 <section id="v-form" class="hide"><form id="f" class="c" style="max-width:720px"><h2 style="margin-bottom:2px">รายละเอียดเหตุการณ์</h2><div class="k">ใช้เวลาไม่ถึง 1 นาที</div><label class="l req" for="by">ชื่อผู้แจ้ง</label><input id="by" name="by" required>
