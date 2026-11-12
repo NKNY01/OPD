@@ -93,7 +93,7 @@ body.pdfm{padding:0!important;background:#fff}.pdfm *,.pdfm *::before,.pdfm *::a
 <div class="c"><b>โอกาสเกิดของแต่ละปัญหา</b><div class="k" id="lkn" style="margin-bottom:6px"></div><div id="lk"></div></div></div></section>
 
 <section id="v-form" class="hide"><form id="f" class="c" style="max-width:720px"><h2 style="margin-bottom:2px">รายละเอียดเหตุการณ์</h2><div class="k">ใช้เวลาไม่ถึง 1 นาที</div><label class="l req" for="by">ชื่อผู้แจ้ง</label><input id="by" name="by" required>
-<label class="l req" for="at">วัน-เวลาที่พบ</label><input id="at" name="at" type="datetime-local" required>
+<label class="l req" for="at">วัน-เวลาที่พบ</label><input id="at" name="at" type="datetime-local" required><button type="button" class="b" id="atn" style="margin-top:8px;min-height:40px">ใช้เวลาปัจจุบัน</button>
 <label class="l req">ประเภทปัญหา</label><div class="chips" id="chips"></div>
 <label class="l" for="place">ตำแหน่ง/ช่องที่เกิดปัญหา (ถ้ามี)</label><input id="place" name="place">
 <label class="l" for="fix">แก้ไขอย่างไร</label><select id="fix" name="fix"><option>ยังไม่ได้แก้ไข</option><option>รีสตาร์ทเครื่อง</option><option>แก้ไขเอง</option><option>เรียกช่าง</option></select>
@@ -137,37 +137,41 @@ $("#ab").onclick=async()=>{if(AP)return setAP("");const a=prompt("รหัส�
 function setTheme(t,tmp){document.documentElement.dataset.theme=t;if(!tmp)ls.set("theme",t);$("#tg").innerHTML=I(t=="dark"?SUN:MOON);document.querySelectorAll(".th").forEach(b=>b.classList.toggle("on",b.dataset.t==t))}
 $("#tg").onclick=()=>setTheme(document.documentElement.dataset.theme=="dark"?"light":"dark");document.querySelectorAll(".th").forEach(b=>b.onclick=()=>setTheme(b.dataset.t));
 function demo(b){if(!D.types.length&&!b){D.types=["สายพานดัง","ไฟตู้จัดยาค้าง","จัดยาเสร็จแล้วแต่ตะกร้าไม่ดันออก","อื่น ๆ"];const w=[0,0,0,1,1,2,3],f=["รีสตาร์ทเครื่อง","เรียกช่าง","แก้ไขเอง","ยังไม่ได้แก้ไข"];
-for(let i=0;i<70;i++){const d=new Date(Date.now()-Math.random()*90*864e5);D.reports.push({id:"d"+i,at:`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(8+Math.floor(Math.random()*8))}:${z(Math.floor(Math.random()*60))}`,by:"ตัวอย่าง",type:D.types[w[Math.floor(Math.random()*7)]],fix:f[Math.floor(Math.random()*4)],place:"",note:""})}}
+for(let i=0;i<70;i++){const d=new Date(NOW().getTime()-Math.random()*90*864e5);D.reports.push({id:"d"+i,at:`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(8+Math.floor(Math.random()*8))}:${z(Math.floor(Math.random()*60))}`,by:"ตัวอย่าง",type:D.types[w[Math.floor(Math.random()*7)]],fix:f[Math.floor(Math.random()*4)],place:"",note:""})}}
 if(b&&b.action=="addReport")D.reports.push({id:"n"+Date.now(),...b.report,files:(b.report.files||[]).map(f=>({id:"",name:f.name,type:f.type}))});if(b&&b.action=="saveTypes")D.types=b.types;if(b&&b.action=="checkAdmin")return b.adminPin=="9999"?{ok:true}:{error:"admin"};if(b&&b.action=="updateReport"){const r=D.reports.find(x=>x.id==b.id);if(r){Object.assign(r,b.report);r.files=(r.files||[]).filter(f=>!(b.removeFiles||[]).includes(f.id))}}if(b&&b.action=="deleteReport")D.reports=D.reports.filter(x=>x.id!=b.id);if(b&&b.action=="updateStatus"){const r=D.reports.find(x=>x.id==b.id);if(r){const h=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:ST(r),note:"แจ้งปัญหา"}];h.push({at:nowL(),by:b.by,st:b.status,note:b.note});r.history=h;r.status=b.status}}return D}
 async function api(b){if(!API_URL)return demo(b);try{const r=await fetch(b?API_URL:API_URL+"?pin="+encodeURIComponent(S.pin||""),b?{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({...b,pin:S.pin})}:{});return await r.json()}catch(e){return{error:"net"}}}
 function toast(t){const e=$("#toast");e.textContent=t;e.classList.remove("hide");setTimeout(()=>e.classList.add("hide"),3000)}
 const hash=async s=>window.crypto&&crypto.subtle?[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)))].map(x=>x.toString(16).padStart(2,"0")).join(""):"";
 function cache(){try{return JSON.parse(ls.get("cache")||"null")}catch(_){return null}}
 function show(){$("#lock").classList.add("hide");$("#chips").innerHTML=D.types.map(t=>`<label><input type="radio" name="type" value="${esc(t)}" required>${esc(t)}</label>`).join("");render();rh();rd();if(OD&&!$("#v-det").classList.contains("hide"))rdt();if(!HR){const m=/^#r=([\w-]+)/.exec(location.hash);if(m&&D.reports.some(x=>x.id==m[1])){HR=1;od(m[1])}}}
-async function load(){const j=await api();if(j.error){$("#pe").textContent=j.error=="net"?"เชื่อมต่อไม่ได้ ลองใหม่":"รหัส PIN ไม่ถูกต้อง";if(j.error=="pin")ls.del("cache");$("#lock").classList.remove("hide");return false}
-D=j;if(j.admin&&!AP)setAP(S.pin);show();hash(S.pin).then(h=>{if(h)ls.set("cache",JSON.stringify({h,d:D}))});return true}
+let LS=0;async function load(){const my=++LS;const j=await api();if(my!==LS)return false;if(j.error){$("#pe").textContent=j.error=="net"?"เชื่อมต่อไม่ได้ ลองใหม่":"รหัส PIN ไม่ถูกต้อง";if(j.error=="pin")ls.del("cache");$("#lock").classList.remove("hide");return false}
+D=j;D.reports.forEach(r=>{r.at=nat(r.at);(r.history||[]).forEach(h=>h.at=nat(h.at))});if(j.admin&&!AP)setAP(S.pin);show();hash(S.pin).then(h=>{if(h)ls.set("cache",JSON.stringify({h,d:D}))});return true}
 async function fast(){const c=cache(),h=await hash(S.pin||"");if(c&&h&&c.h==h){D=c.d;show()}}
 $("#lf").onsubmit=async e=>{e.preventDefault();S.pin=$("#pin").value;const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="กำลังเข้าสู่ระบบ…";await fast();await load();bt.disabled=false;bt.textContent="เข้าใช้งาน"};
 $("#lo").onclick=()=>{setAP("");S.pin="";ls.del("cache");$("#pin").value="";$("#lock").classList.remove("hide")};
 function nav(v){V=v;["day","dash","form","hist","set","det"].forEach(x=>$("#v-"+x).classList.toggle("hide",x!=v));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v==(v=="form"?"day":v)));$("#ttl").textContent=TT[v];$("#ex").classList.toggle("hide",v!="dash");$("#nw").classList.toggle("hide",v=="form"||v=="day");
-if(v=="set"){T=[...D.types];rt()}if(v=="form"&&!$("#at").value)setNow();scrollTo(0,0)}
+if(v=="set"){T=[...D.types];rt()}if(v=="form"){setAt();if(!$("#by").value)$("#by").value=ls.get("by")||""}scrollTo(0,0)}
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>nav(b.dataset.v));
-function setNow(){const n=new Date();$("#at").value=`${n.getFullYear()}-${z(n.getMonth()+1)}-${z(n.getDate())}T${z(n.getHours())}:${z(n.getMinutes())}`;$("#by").value=ls.get("by")||""}
-function setMode(m){mode=m;document.querySelectorAll(".m").forEach(b=>b.classList.toggle("on",b.dataset.m==m));const p=$("#pv"),n=new Date(),y=n.getFullYear(),mm=z(n.getMonth()+1);p.type=m=="year"?"number":m;p.value=m=="day"?`${y}-${mm}-${z(n.getDate())}`:m=="month"?`${y}-${mm}`:y;syncCal();render()}
+// เวลาทั้งหมดอิงเวลากรุงเทพ (UTC+7) ไม่ขึ้นกับเขตเวลาของเครื่อง: คืน Date ที่ getHours() ฯลฯ ตรงกับเวลากรุงเทพ
+function NOW(){const b=new Date(Date.now()+7*36e5);return new Date(b.getUTCFullYear(),b.getUTCMonth(),b.getUTCDate(),b.getUTCHours(),b.getUTCMinutes(),b.getUTCSeconds())}
+// ปรับค่าเวลาที่ได้จากเซิร์ฟเวอร์ให้อยู่ในรูป YYYY-MM-DDTHH:mm (เวลากรุงเทพ) แม้ได้เป็น ISO แบบ UTC
+function nat(a){a=String(a==null?"":a);const m=/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})(:\d{2}(\.\d+)?)?$/.exec(a);if(m)return m[1];if(/(Z|[+-]\d\d:?\d\d)$/.test(a)){const d=new Date(a);if(!isNaN(d))return new Date(d.getTime()+7*36e5).toISOString().slice(0,16)}return a}
+function setAt(){const n=NOW();$("#at").value=`${n.getFullYear()}-${z(n.getMonth()+1)}-${z(n.getDate())}T${z(n.getHours())}:${z(n.getMinutes())}`}function setNow(){setAt();$("#by").value=ls.get("by")||""}
+function setMode(m){mode=m;document.querySelectorAll(".m").forEach(b=>b.classList.toggle("on",b.dataset.m==m));const p=$("#pv"),n=NOW(),y=n.getFullYear(),mm=z(n.getMonth()+1);p.type=m=="year"?"number":m;p.value=m=="day"?`${y}-${mm}-${z(n.getDate())}`:m=="month"?`${y}-${mm}`:y;syncCal();render()}
 document.querySelectorAll(".m").forEach(b=>b.onclick=()=>setMode(b.dataset.m));$("#pv").onchange=()=>{syncCal();render()};
 let CM=null;
-function syncCal(){const v=String($("#pv").value||""),[y,m]=v.split("-").map(Number),n=new Date();CM=mode=="year"?{y,m:y==n.getFullYear()?n.getMonth()+1:12}:{y,m}}
+function syncCal(){const v=String($("#pv").value||""),[y,m]=v.split("-").map(Number),n=NOW();CM=mode=="year"?{y,m:y==n.getFullYear()?n.getMonth()+1:12}:{y,m}}
 function rc(){if(!CM)return;const {y,m}=CM,dc={};D.reports.forEach(r=>{const a=String(r.at);if(a.startsWith(y+"-"+z(m)))dc[a.slice(0,10)]=(dc[a.slice(0,10)]||0)+1});
-const f=(new Date(y,m-1,1).getDay()+6)%7,dn=new Date(y,m,0).getDate(),td=new Date(),tk=`${td.getFullYear()}-${z(td.getMonth()+1)}-${z(td.getDate())}`;
+const f=(new Date(y,m-1,1).getDay()+6)%7,dn=new Date(y,m,0).getDate(),td=NOW(),tk=`${td.getFullYear()}-${z(td.getMonth()+1)}-${z(td.getDate())}`;
 let h=["จ","อ","พ","พฤ","ศ","ส","อา"].map(x=>`<b>${x}</b>`).join("")+"<span></span>".repeat(f);
 for(let d=1;d<=dn;d++){const k=`${y}-${z(m)}-${z(d)}`,c=dc[k]||0;h+=`<button class="cd${c?" r":""}${k==tk?" t":""}" data-d="${k}" title="${c?c+" รายการ":"ไม่พบปัญหา"}" aria-label="${d} ${TH[m-1]} ${y+543} ${c?"พบปัญหา "+c+" รายการ":"ไม่พบปัญหา"}">${d}</button>`}
 $("#cg").innerHTML=h;$("#cmn").textContent=`${TH[m-1]} ${y+543}`;$("#cs").innerHTML=`<i class="sw"></i>วันที่พบปัญหา ${Object.keys(dc).length} วัน จาก ${dn} วัน (วันอื่นไม่พบปัญหา)`}
 $("#cp").onclick=()=>{CM.m--;if(CM.m<1){CM.m=12;CM.y--}rc()};$("#cn").onclick=()=>{CM.m++;if(CM.m>12){CM.m=1;CM.y++}rc()};
 $("#cg").onclick=e=>{const b=e.target.closest("[data-d]");if(b){HD=b.dataset.d;$("#hd").value=HD;nav("hist");rh()}};
-function daysIn(v){const [y,m]=v.split("-").map(Number),n=new Date();if(m)return y==n.getFullYear()&&m==n.getMonth()+1?n.getDate():new Date(y,m,0).getDate();return y==n.getFullYear()?Math.ceil((n-new Date(y,0,1))/864e5):365}
+function daysIn(v){const [y,m]=v.split("-").map(Number),n=NOW();if(m)return y==n.getFullYear()&&m==n.getMonth()+1?n.getDate():new Date(y,m,0).getDate();return y==n.getFullYear()?Math.ceil((n-new Date(y,0,1))/864e5):365}
 function lab(v){const [y,m,d]=v.split("-").map(Number);return d?`${d} ${TH[m-1]} ${y+543}`:m?`${TH[m-1]} ${y+543}`:`ปี ${y+543}`}
 function render(){rc();const v=String($("#pv").value||"");if(!v)return;const [y,m]=v.split("-").map(Number),R=D.reports.filter(r=>String(r.at).startsWith(v)),n=R.length,days=mode=="day"?1:daysIn(v);
-$("#pl").textContent="สรุป"+{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]+" · "+lab(v);$("#pd").textContent=lab(v)+" · สร้างเมื่อ "+new Date().toLocaleDateString("th-TH");
+$("#pl").textContent="สรุป"+{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]+" · "+lab(v);$("#pd").textContent=lab(v)+" · สร้างเมื่อ "+NOW().toLocaleDateString("th-TH");
 $("#k1").textContent=n;$("#k2").textContent=R.filter(r=>ST(r)=="done").length;$("#k3").textContent=R.filter(r=>ST(r)=="open").length;$("#k4").textContent=R.filter(r=>ST(r)=="tech").length;
 const keys=mode=="day"?[...Array(24).keys()]:mode=="month"?[...Array(new Date(y,m,0).getDate()).keys()].map(i=>i+1):[...Array(12).keys()].map(i=>i+1),
 cnt=keys.map(k=>R.filter(r=>{const a=String(r.at);return +(mode=="day"?a.slice(11,13):mode=="month"?a.slice(8,10):a.slice(5,7))==k}).length),mx=Math.max(1,...cnt);
@@ -198,7 +202,7 @@ $("#ef").onsubmit=async e=>{e.preventDefault();const bt=e.target.querySelector("
 nr={at:$("#eat").value,by:$("#eby").value,type:$("#ety").value,place:$("#epl").value,fix:$("#efx").value,note:$("#eno").value,status:$("#est").value},j=await api({action:"updateReport",adminPin:AP,id:ER.id,report:nr,removeFiles:rm});bt.disabled=false;
 if(j.error){if(j.error=="admin")setAP("");return toast(j.error=="admin"?"รหัสผู้ดูแลไม่ถูกต้อง":"บันทึกไม่สำเร็จ")}
 if(API_URL){Object.assign(ER,nr);ER.files=(ER.files||[]).filter(f=>!rm.includes(f.id))}$("#em").classList.add("hide");toast("บันทึกการแก้ไขแล้ว");show();load()};
-document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const q=b.dataset.q;if(q==="")HD="";else{const d=new Date(Date.now()-q*864e5);HD=`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`}$("#hd").value=HD;rh()});
+document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const q=b.dataset.q;if(q==="")HD="";else{const d=NOW();d.setDate(d.getDate()-q);HD=`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`}$("#hd").value=HD;rh()});
 $("#f").onsubmit=e=>{e.preventDefault();P=Object.fromEntries(new FormData(e.target));P.files=FL.map(({name,type,data})=>({name,type,data}));$("#sm").innerHTML=[["ผู้แจ้ง",P.by],["วัน-เวลา",fmt(P.at)],["ประเภทปัญหา",P.type],["ตำแหน่ง",P.place||"-"],["แก้ไขอย่างไร",P.fix],["รายละเอียด",P.note||"-"],["ไฟล์แนบ",FL.length?FL.map(x=>x.name).join(", "):"ไม่มี"]].map(([a,b])=>`<div class="t"><span class="k" style="width:110px;flex:none">${a}</span><span style="flex:1">${esc(b)}</span></div>`).join("");$("#md").classList.remove("hide");$("#ok").focus()};
 $("#bk").onclick=()=>$("#md").classList.add("hide");
 let FL=[];const MV=10e6;
@@ -226,7 +230,7 @@ pd.save("รายงานปัญหาหุ่นยนต์จ่าย�
 catch(e){if(!(window.html2canvas&&window.jspdf)){toast("โหลดตัวสร้าง PDF ไม่ได้ จะเปิดหน้าต่างพิมพ์แทน");await new Promise(r=>setTimeout(r,600));print()}else toast("สร้าง PDF ไม่สำเร็จ: "+(e&&e.message||e))}
 el.style.width="";document.body.classList.remove("pdfm");setTheme(t,1);render();bt.disabled=false;bt.textContent="ส่งออก PDF"}
 setTheme(ls.get("theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));let DY="";const DN=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"],ymd=d=>`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
-function rd(){const n=new Date();if(!DY)DY=ymd(n);const [y,m,d]=DY.split("-").map(Number),cur=new Date(y,m-1,d),mon=new Date(y,m-1,d-((cur.getDay()+6)%7)),A=D.reports,has=k=>A.some(r=>String(r.at).startsWith(k));
+function rd(){const n=NOW();if(!DY)DY=ymd(n);const [y,m,d]=DY.split("-").map(Number),cur=new Date(y,m-1,d),mon=new Date(y,m-1,d-((cur.getDay()+6)%7)),A=D.reports,has=k=>A.some(r=>String(r.at).startsWith(k));
 $("#dtt").textContent=`${DN[cur.getDay()]} ${d} ${TH[m-1]} ${y+543}`;
 $("#wk").innerHTML=[0,1,2,3,4,5,6].map(i=>{const x=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i),k=ymd(x);return `<button data-w="${k}" class="${k==DY?"on":""}" aria-label="${x.getDate()} ${TH[x.getMonth()]}"><small>${["จ","อ","พ","พฤ","ศ","ส","อา"][i]}</small><b>${x.getDate()}</b><i class="${has(k)?"":"o"}"></i></button>`}).join("");
 const R=A.filter(r=>String(r.at).startsWith(DY)).sort((a,b)=>String(b.at)<String(a.at)?-1:1);
@@ -240,13 +244,13 @@ $("#wk").onclick=e=>{const b=e.target.closest("[data-w]");if(b){DY=b.dataset.w;r
 $("#qc").onclick=e=>{const b=e.target.closest("[data-qt]");if(b)qr(b.dataset.qt)};$("#cmb").onclick=()=>qr("");$("#mf").onclick=()=>nav("dash");$("#dl").onclick=e=>$("#hl").onclick(e);
 const SL={open:"ยังไม่ได้แก้ไข",tech:"เรียกช่างแล้ว",done:"แก้ไขเรียบร้อย"},SC={open:"bad",tech:"warn",done:"ok"};
 function ST(r){return r.status||(r.fix=="ยังไม่ได้แก้ไข"?"open":r.fix=="เรียกช่าง"?"tech":"done")}
-let OD="",HR=0,PV="day";const nowL=()=>{const n=new Date();return `${ymd(n)}T${z(n.getHours())}:${z(n.getMinutes())}`};
+let OD="",HR=0,PV="day";const nowL=()=>{const n=NOW();return `${ymd(n)}T${z(n.getHours())}:${z(n.getMinutes())}`};
 function od(id){const r=D.reports.find(x=>x.id==id);if(!r)return toast("ไม่พบรายงานนี้");const c=document.querySelector("section:not(.hide)");if(c&&c.id!="v-det")PV=c.id.slice(2);OD=id;nav("det");rdt()}
 function rdt(){const r=D.reports.find(x=>x.id==OD);if(!r)return;const s=ST(r);$("#dno").textContent=r.no||("#"+r.id);$("#dst").className="ch "+SC[s];$("#dst").textContent=SL[s];
 $("#drw").innerHTML=[["ประเภท",r.type],["ตำแหน่ง/ช่อง",r.place],["ผู้แจ้ง",r.by],["วัน-เวลาที่แจ้ง",fmt(r.at)],["วิธีแก้ตอนแจ้ง",r.fix],["รายละเอียด",r.note]].filter(x=>x[1]).map(([l,v])=>`<div class="t"><span class="k" style="width:120px;flex:none">${l}</span><span style="flex:1;min-width:0;word-break:break-word">${esc(v)}</span></div>`).join("");
 $("#dfs").innerHTML=(r.files||[]).filter(f=>f.id).map(FX).join("");
 const H=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:s,note:"แจ้งปัญหา"}];
-$("#dhs").innerHTML=[...H].reverse().map(h=>`<div class="t" style="align-items:flex-start"><div style="flex:1;min-width:0"><span class="ch ${SC[h.st]||""}">${SL[h.st]||esc(h.st)}</span><div class="k" style="margin-top:6px">${fmt(h.at)} · ${esc(h.by)}${h.note?" · "+esc(h.note):""}</div></div></div>`).join("");
+$("#dhs").innerHTML=[...H].reverse().map(h=>`<div class="t" style="align-items:flex-start"><div style="flex:1;min-width:0"><span class="ch ${SC[h.st]||""}">${SL[h.st]||esc(h.st)}</span><div class="k" style="margin-top:6px">${fmt(nat(h.at))} · ${esc(h.by)}${h.note?" · "+esc(h.note):""}</div></div></div>`).join("");
 const lock=!!(D.cfg&&D.cfg.statusAdminOnly&&!AP);$("#dac").classList.toggle("hide",lock);$("#dlk").classList.toggle("hide",!lock);
 $("#b1").disabled=s=="tech";$("#b2").disabled=s=="done";$("#b0").disabled=s=="open";if(!$("#dby").value)$("#dby").value=ls.get("by")||""}
 async function us(st){const r=D.reports.find(x=>x.id==OD);if(!r)return;const by=$("#dby").value.trim();if(!by)return toast("กรุณาใส่ชื่อผู้อัปเดต");ls.set("by",by);const bs=["#b0","#b1","#b2"].map(i=>$(i));bs.forEach(b=>b.disabled=true);
@@ -257,6 +261,7 @@ $("#b1").onclick=()=>us("tech");$("#b2").onclick=()=>us("done");$("#b0").onclick
 $("#dbk").onclick=()=>{history.replaceState(null,"",location.pathname+location.search);nav(PV)};
 window.onhashchange=()=>{HR=0;show()};
 const hlh=$("#hl").onclick;$("#hl").onclick=e=>{const o=e.target.closest("[data-o]");if(o&&o.dataset.o&&!e.target.closest("button,a")){od(o.dataset.o);return}return hlh(e)};
+$("#atn").onclick=setAt;
 setMode("month");nav("day");ra();$("#nw").onclick=()=>nav("form");
 if(!API_URL)$("#cfg").classList.remove("hide");(async()=>{if(!API_URL){S.pin="x";await load()}else if(S.pin){await fast();await load()}})();
 </script>
