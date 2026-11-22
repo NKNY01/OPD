@@ -71,36 +71,186 @@ body.pdfm{padding:0!important;background:#fff}.pdfm *,.pdfm *::before,.pdfm *::a
 @media(min-width:1100px){.g1{grid-template-columns:2fr 1fr}.g2{grid-template-columns:1fr 1.5fr}.bars{height:230px}}
 .ch.ok{background:var(--okbg);color:var(--ok)}.tc[data-o],#hl .t[data-o]{cursor:pointer}.tc[data-o]:hover{border-color:var(--pr)}#hl .t[data-o]:hover{background:var(--ac)}
 .xw{position:relative}.xm{position:absolute;right:0;top:calc(100% + 6px);z-index:20;min-width:250px;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:6px;box-shadow:0 18px 40px -16px rgba(0,0,0,.45)}.xi{display:flex;width:100%;min-height:48px;align-items:center;border:0;background:none;text-align:left;padding:0 14px;border-radius:12px;font:500 14px var(--sans);color:var(--tx);cursor:pointer}.xi:hover,.xi:focus-visible{background:var(--ac)}@media(max-width:600px){.xw{flex:1}.xw #ex{width:100%}.xm{left:0;right:auto;min-width:min(280px,calc(100vw - 32px))}}
+dialog.ov {
+  width:100%;height:100%;max-width:none;max-height:none;margin:0;
+  border:0;color:var(--tx);background:transparent;
+}
+dialog.ov::backdrop { background:rgba(8,20,32,.58) }
+/* Jurnal theme */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg:#fdf3ea; --card:#fff8f2; --bd:#d9c4b0; --hl:#ecd9c8; --tx:#1b2b3a; --mu:#50616f;
+  --pr:#fbdd47; --pd:#354487; --sel:#fbdd47; --selt:#1b2b3a; --ac:#fdeee3; --soft:#e8ccb2;
+  --bad:#a8302c; --badbg:#fbcfcb; --warn:#805000; --warnbg:#fdeaa0; --ok:#17653f; --okbg:#cdeebd;
+  --edge:#1b2b3a; --dot:#e6d3c0; --focus:#3b3f96; --sheet:#fff;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:#2a0b66; --card:#1c1a24; --bd:#3a3552; --hl:#302a45; --tx:#f7f3ff; --mu:#c3b9e0;
+  --pr:#8e82fa; --pd:#c6f65a; --sel:#5f4de6; --selt:#fff; --ac:#292438; --soft:#4b3b73;
+  --bad:#ffacc0; --badbg:#5a1f3d; --warn:#ffd75a; --warnbg:#5a4a1c; --ok:#b9f5cd; --okbg:#1d4a36;
+  --edge:#0d0a16; --dot:#3d1a8c; --focus:#c6f65a; --sheet:#14121b;
+}
+body {
+  background-image: radial-gradient(var(--dot) 1.6px, transparent 1.8px);
+  background-size: 26px 26px;
+}
+.top h1 {
+  display:inline-block;
+  padding:4px 12px;
+  margin-top:4px;
+  background:var(--sel);
+  color:var(--selt);
+  border:2px solid var(--edge);
+  border-radius:10px;
+  box-shadow:3px 3px 0 var(--edge);
+  transform:rotate(-1.5deg);
+}
+.top h1:focus { outline:0 }
+.c,.tc,.st3>div,.st4>div,.ft {
+  border:2px solid var(--edge);
+  box-shadow:4px 4px 0 var(--edge);
+}
+.tc { border-inline-start-width:5px }
+.b,.q button,.wk button,.cd,.chips label,#nav button {
+  border:2px solid var(--edge);
+  box-shadow:3px 3px 0 var(--edge);
+  color:var(--tx);
+  transition:transform .08s,box-shadow .08s,background-color .15s;
+}
+.b.p,.seg .b.on,#nav button.on,.wk button.on,.chips label:has(input:checked) {
+  background:var(--sel);
+  color:var(--selt);
+  border-color:var(--edge);
+}
+.seg { padding:4px 6px 7px; border:2px solid var(--edge); max-width:100% }
+.seg .b { border:0; box-shadow:none; color:var(--tx); padding-inline:14px }
+.seg .b.on { box-shadow:2px 2px var(--edge) }
+.wk { gap:8px }
+.wk button { min-width:0; padding:0; background:var(--card) }
+.wk button.on { background:var(--sel) }
+.cd { max-width:none; box-shadow:1px 1px var(--edge); border-radius:10px; background:var(--card) }
+.cd.r { background:var(--sel); color:var(--selt) }
+.cd.t { outline:2px solid var(--focus); outline-offset:1px; border:2px solid var(--edge) }
+input,select,textarea { border:2px solid var(--edge); background:var(--sheet) }
+input:focus,select:focus,textarea:focus { border-color:var(--edge); box-shadow:3px 3px 0 var(--focus) }
+:focus-visible { outline:3px solid var(--focus); outline-offset:2px }
+#nav { border:0; border-top:2px solid var(--edge); gap:5px; padding-inline:7px }
+#nav button { display:flex; justify-content:center; align-items:center; background:var(--card); border-radius:10px; min-width:0; padding-inline:5px; min-height:45px }
+#nav button.on::before { display:none }
+@media(min-width:900px) {
+  #nav { border-top:0; border-bottom:2px solid var(--edge); gap:9px }
+  #nav button { padding-inline:14px; gap:7px }
+}
+@media(hover:hover) {
+  .b:not(:disabled):hover,.q button:hover,.wk button:hover,.cd:hover,#nav button:hover,.ft:hover {
+    transform:translate(-1px,-1px);
+    box-shadow:4px 4px 0 var(--edge);
+  }
+}
+.b:not(:disabled):active,.q button:active,.wk button:active,.cd:active,#nav button:active,.ft:active {
+  transform:translate(2px,2px);
+  box-shadow:1px 1px 0 var(--edge);
+}
+section:not(.hide) { animation:opd-enter .35s ease both }
+section:not(.hide)>* { animation:none }
+.ov .c { animation:opd-pop .35s cubic-bezier(.2,.9,.3,1.2) both }
+@keyframes opd-enter { from { opacity:0; transform:translateY(14px) scale(.985) } }
+@keyframes opd-pop { from { opacity:0; transform:translateY(24px) scale(.96) } }
+#v-day { display:flex }
+#pendingOverview { background:var(--ac) }
+#pendingCount { font-size:14px; color:var(--mu) }
+.pending-case { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; border-bottom:1px solid var(--bd); padding:10px 0; overflow-wrap:anywhere }
+#pendingOverview .b { margin-top:10px }
+.back { align-self:flex-start }
+#saveResult { display:flex; gap:12px; flex-wrap:wrap; align-items:center; background:var(--okbg); color:var(--ok) }
+#saveResult .b { margin-inline-start:auto }
+#cmb { width:100%; min-height:52px }
+#v-day .events,#dl,#hl { min-width:0 }
+#hl .t { flex-wrap:wrap }
+.case-link { padding:0 10px; min-height:44px; font-size:13px }
+fieldset { border:0; padding:0; margin:0 0 16px; min-width:0 }
+legend { padding:0 0 6px; font-weight:600 }
+.optional { border-top:1px solid var(--bd); margin-top:20px; padding-top:12px }
+.optional summary { cursor:pointer; font-weight:600 }
+.rank { margin-top:12px; overflow-wrap:anywhere }
+.rank>div:first-child { display:flex; align-items:baseline; justify-content:space-between; gap:6px; flex-wrap:wrap }
+.mt i { background:var(--sel) }
+.bars { gap:2px; padding:0 }
+.bars .bar { display:flex; align-items:end; min-height:0; min-width:0; height:100%; padding:0; border:0; background:none; cursor:pointer; animation:none }
+.bar span { display:block; width:100%; background:var(--sel); border-radius:4px 4px 0 0; animation:grow .35s ease both }
+.bar:hover { background:var(--ac) }
+.lb { gap:2px }
+.lb span { min-width:0 }
+.export-label { padding:5px 14px; font-weight:600 }
+.fs a,.ch { max-width:100% }
+.fs a { white-space:normal; overflow-wrap:anywhere }
+#v-dash .calendar { max-width:100% }
+body.pdfm { background-image:none }
+.pdfm #v-dash { width:720px; animation:none }
+.pdfm .bar span { animation:none }
+@media(min-width:1100px) {
+  #v-day { display:grid; grid-template-columns:minmax(300px,5fr) minmax(0,7fr); gap:16px 22px }
+  #v-day>* { grid-column:1 }
+  #v-day>div:nth-child(5) { grid-column:1; grid-row:auto }
+  #v-day .events { grid-column:2; grid-row:2/span 6 }
+}
+@media(max-width:390px) {
+  #f,.c { padding:12px }
+  .st3>div,.st4>div { padding:8px }
+  .wk { gap:5px }
+  .tc { padding:8px }
+  .xm { min-width:min(248px,calc(100vw - 32px)) }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important; transition:none!important }
+}
+
 </style></head><body>
-<div id="lock" class="ov"><form id="lf" class="c"><img data-logo class="lgi" width="96" height="96" alt="โลโก้โรงพยาบาลนครนายก" style="display:block;margin:0 auto 10px"><b style="font-size:18px">ห้องจ่ายยา OPD รพ.นครนายก</b><label class="l" for="pin">รหัส PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="off"><div id="pe" class="k" style="color:var(--bad);margin:8px 0"></div><button class="b p" style="width:100%">เข้าใช้งาน</button></form></div>
+<div id="lock" class="ov"><form id="lf" class="c"><img data-logo class="lgi" width="96" height="96" alt="โลโก้โรงพยาบาลนครนายก" style="display:block;margin:0 auto 10px"><b style="font-size:18px">ห้องจ่ายยา OPD รพ.นครนายก</b><label class="l" for="pin">รหัส PIN</label><input id="pin" type="password" autocomplete="off" required><div id="pe" role="alert" class="k" style="color:var(--bad);margin:8px 0"></div><button class="b p" style="width:100%">เข้าใช้งาน</button></form></div>
 <nav id="nav" class="noprint"></nav>
 <main>
-<div class="top noprint"><img data-logo class="lg0 lgi" width="44" height="44" alt="โลโก้โรงพยาบาลนครนายก"><div class="tt"><div class="k">ห้องจ่ายยา OPD · โรงพยาบาลนครนายก</div><h1 id="ttl"></h1></div><div class="act"><div class="xw"><button id="ex" class="b" aria-haspopup="menu" aria-expanded="false">ส่งออก ▾</button><div id="exm" class="xm hide" role="menu"><button role="menuitem" class="xi" id="exp">ไฟล์ PDF · รายงานสรุป</button><button role="menuitem" class="xi" id="exx">Excel · ข้อมูลช่วงที่เลือก</button><button role="menuitem" class="xi" id="exa">Excel · ข้อมูลทั้งหมด</button></div></div><button id="tg" class="b ic" aria-label="สลับธีมสว่าง/มืด"></button><button id="nw" class="b p">+ แจ้งปัญหา</button></div></div>
+<div class="top noprint"><img data-logo class="lg0 lgi" width="44" height="44" alt="โลโก้โรงพยาบาลนครนายก"><div class="tt"><div class="k">ห้องจ่ายยา OPD · โรงพยาบาลนครนายก</div><h1 id="ttl" tabindex="-1"></h1></div><div class="act"><div class="xw"><button id="ex" class="b" aria-haspopup="menu" aria-expanded="false">ส่งออก ▾</button><div id="exm" class="xm hide" role="menu"><div class="k export-label" id="exportPeriod"></div><div class="k export-label">สรุปสำหรับแชร์</div><button role="menuitem" class="xi" id="exp">PDF · สรุป</button><button role="menuitem" class="xi" id="exs">Excel · สรุป</button><div class="k export-label">รายละเอียดสำหรับใช้ภายใน</div><button role="menuitem" class="xi" id="exx">Excel · ช่วงที่เลือก</button><button role="menuitem" class="xi" id="exa">Excel · ข้อมูลทั้งหมด</button></div></div><button id="tg" class="b ic" aria-label="สลับธีมสว่าง/มืด"></button><button id="nw" class="b p">+ แจ้งปัญหา</button></div></div>
 <div id="cfg" class="c noprint hide">โหมดตัวอย่าง: ยังไม่ได้ใส่ลิงก์ Apps Script (ข้อมูลที่เห็นเป็นข้อมูลสุ่ม)</div>
 <section id="v-day" class="hide">
+<div class="c hide" id="saveResult" role="status"><b>บันทึกรายงานแล้ว</b><span id="savedNo"></span><button type="button" class="b p" id="viewSaved">ดูสถานะ</button></div>
+<div class="c cm"><button type="button" class="b p" id="cmb">＋ แจ้งปัญหาเครื่อง</button><div class="q" id="qc"></div></div>
+<div class="c" id="pendingOverview"><h2>ยังไม่ปิดเคส <span id="pendingCount"></span></h2><div id="pendingPreview"></div><button type="button" class="b" id="openPending">ติดตามเคสค้าง ›</button></div>
 <div class="dh"><div><div class="k">รายการของวัน</div><h2 id="dtt"></h2></div><div class="wa"><button class="b ic" id="wp" aria-label="สัปดาห์ก่อนหน้า">‹</button><button class="b ic" id="wn" aria-label="สัปดาห์ถัดไป">›</button></div></div>
 <div class="wk" id="wk"></div>
 <div class="st3"><div><b id="s1"></b><span class="k">รายการ</span></div><div><b id="s2" style="color:var(--bad)"></b><span class="k">ยังไม่แก้ไข</span></div><div><b id="s3" style="color:var(--warn)"></b><span class="k">รอช่าง</span></div></div>
-<div class="c cm"><button type="button" class="in" id="cmb"><span><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>เกิดอะไรขึ้นกับหุ่นยนต์?</button><div class="q" id="qc"></div></div>
-<div><h2 class="sh">เหตุการณ์</h2><div id="dl"></div></div>
+<div class="events"><h2 class="sh">เหตุการณ์ของวันที่เลือก</h2><div id="dl"></div></div>
 <button type="button" class="ft" id="mf"></button>
 </section>
+<section id="v-pending" class="hide">
+<button type="button" class="b back" id="pendingBack">‹ กลับหน้าวันนี้</button>
+<div class="c"><h2 id="pendingHeading"></h2><div id="pendingList"></div></div>
+<button type="button" class="b p back" id="copyPending">คัดลอกสรุปเคสค้าง</button>
+<textarea class="hide" id="pendingText" rows="6" aria-label="ข้อความสรุปเคสค้าง" readonly></textarea>
+</section>
 <section id="v-dash" class="hide"><div class="ph"><div style="display:flex;gap:12px;align-items:center"><img data-logo class="lgi" width="60" height="60" alt=""><div><b style="font-size:20px">รายงานสรุปปัญหาหุ่นยนต์จ่ายยา ห้องจ่ายยา OPD โรงพยาบาลนครนายก</b><div id="pd" class="k"></div></div></div></div>
-<div class="noprint ctl"><div class="seg"><button class="b m" data-m="day">วัน</button><button class="b m on" data-m="month">เดือน</button><button class="b m" data-m="year">ปี</button></div><input id="pv" style="width:170px" aria-label="ช่วงเวลา"></div>
+<div class="noprint ctl"><div class="seg"><button class="b m" data-m="day">วัน</button><button class="b m on" data-m="month">เดือน</button><button class="b m" data-m="year">ปี</button></div><input id="pv" style="width:170px" aria-label="ช่วงเวลา" required><span class="k" id="periodHelp"></span></div>
 <h2 id="pl"></h2>
 <div class="st4"><div><div class="k">ปัญหาทั้งหมด</div><div class="v" id="k1"></div></div><div><div class="k">แก้ไขเรียบร้อย</div><div class="v ok" id="k2"></div></div><div><div class="k">ยังไม่ได้แก้ไข</div><div class="v bad" id="k3"></div></div><div><div class="k">เรียกช่างแล้ว (รอ Service)</div><div class="v warn" id="k4"></div></div></div>
-<div class="g g1"><div class="c"><b id="ct"></b><div class="bars" id="bars"></div><div class="lb" id="lb"></div></div><div class="c"><b>สัดส่วนประเภทปัญหา</b><div class="dn" id="dn" style="margin-top:12px"></div></div></div>
-<div class="g g2"><div class="c"><div style="display:flex;align-items:center;gap:8px"><b id="cmn" style="flex:1"></b><button class="b ic noprint" id="cp" aria-label="เดือนก่อนหน้า">‹</button><button class="b ic noprint" id="cn" aria-label="เดือนถัดไป">›</button></div><div class="cg" id="cg"></div><div class="k" id="cs" style="margin-top:10px"></div></div>
-<div class="c"><b>โอกาสเกิดของแต่ละปัญหา</b><div class="k" id="lkn" style="margin-bottom:6px"></div><div id="lk"></div></div></div></section>
+<div class="g g1"><div class="c"><b id="ct"></b><div class="bars" id="bars"></div><div class="lb" id="lb" aria-hidden="true"></div></div>
+<div class="c"><b>ความถี่จากรายงาน</b><div class="k" id="lkn"></div><div id="lk"></div></div></div>
+<div class="c calendar"><div style="display:flex;align-items:center;gap:8px"><b id="cmn" style="flex:1"></b><button class="b ic noprint" id="cp" aria-label="เดือนก่อนหน้า">‹</button><button class="b ic noprint" id="cn" aria-label="เดือนถัดไป">›</button></div><div class="cg" id="cg"></div><div class="k" id="cs" style="margin-top:10px"></div></div></section>
 
-<section id="v-form" class="hide"><form id="f" class="c" style="max-width:720px"><h2 style="margin-bottom:2px">รายละเอียดเหตุการณ์</h2><div class="k">ใช้เวลาไม่ถึง 1 นาที</div><label class="l req" for="by">ชื่อผู้แจ้ง</label><input id="by" name="by" required>
-<label class="l req" for="at">วัน-เวลาที่พบ</label><input id="at" name="at" type="datetime-local" required><button type="button" class="b" id="atn" style="margin-top:8px;min-height:40px">ใช้เวลาปัจจุบัน</button>
-<label class="l req">ประเภทปัญหา</label><div class="chips" id="chips"></div>
-<label class="l" for="place">ตำแหน่ง/ช่องที่เกิดปัญหา (ถ้ามี)</label><input id="place" name="place">
-<label class="l" for="fix">แก้ไขอย่างไร</label><select id="fix" name="fix"><option>ยังไม่ได้แก้ไข</option><option>รีสตาร์ทเครื่อง</option><option>แก้ไขเอง</option><option>เรียกช่าง</option></select>
-<label class="l" for="note">รายละเอียดเพิ่มเติม</label><textarea id="note" name="note" rows="3"></textarea>
-<label class="l">แนบรูป/คลิปสั้น ๆ (ไม่เกิน 3 ไฟล์ · คลิปไม่เกิน 10 MB)</label><button type="button" class="b" id="fb">+ ถ่ายรูป / เลือกไฟล์</button><input id="fl" type="file" accept="image/*,video/*" multiple hidden><div class="k" style="margin-top:6px">กรุณาไม่ถ่ายให้เห็นใบหน้าหรือข้อมูลผู้ป่วย</div><div class="fp" id="fp"></div>
-<div class="fa"><button class="b p">ตรวจสอบรายการ</button></div></form></section>
+<section id="v-form" class="hide"><form id="f" class="c" style="max-width:720px">
+<fieldset><legend class="req">ประเภทปัญหา</legend><div class="chips" id="chips"></div></fieldset>
+<fieldset><legend class="req">เครื่องยังจ่ายยาได้ไหม?</legend><div class="chips" id="impactChoices">
+<label><input type="radio" name="impact" value="working" required>ยังจ่ายยาได้</label>
+<label><input type="radio" name="impact" value="stopped" required>จ่ายยาไม่ได้</label>
+<label><input type="radio" name="impact" value="unknown" required>ยังไม่ทราบ</label>
+</div></fieldset>
+<label class="l req" for="at">วันและเวลาที่พบ</label><input id="at" name="at" type="datetime-local" required><button type="button" class="b" id="atn" style="margin-top:8px">ใช้เวลาปัจจุบัน</button>
+<label class="l req" for="by">ชื่อผู้แจ้ง</label><input id="by" name="by" maxlength="60" required>
+<label class="l" for="fix">การดำเนินการตอนแจ้ง</label><select id="fix" name="fix"><option>ยังไม่ได้แก้ไข</option><option>รีสตาร์ทเครื่อง</option><option>แก้ไขเอง</option><option>เรียกช่าง</option></select>
+<details class="optional"><summary>ข้อมูลเพิ่มเติมและไฟล์แนบ</summary>
+<label class="l" for="place">ตำแหน่ง/ช่องที่เกิดปัญหา (ถ้ามี)</label><input id="place" name="place" maxlength="100">
+<label class="l" for="note">รายละเอียดเพิ่มเติม</label><textarea id="note" name="note" rows="3" maxlength="1500"></textarea>
+<label class="l">แนบรูป/คลิปสั้น ๆ (ไม่เกิน 3 ไฟล์ · คลิปไม่เกิน 10 MB)</label><button type="button" class="b" id="fb">+ ถ่ายรูป / เลือกไฟล์</button><input id="fl" type="file" accept="image/*,video/*" multiple hidden><div class="k" style="margin-top:6px">หลีกเลี่ยงรูปที่เห็นชื่อหรือใบหน้าผู้ป่วย ฉลากยา หรือใบสั่งยา</div><div class="fp" id="fp"></div>
+</details><div class="fa"><button class="b p">ตรวจสอบก่อนส่ง</button></div></form></section>
 
 <section id="v-hist" class="hide"><div class="c"><label class="l" for="hd" style="margin-top:0">เลือกวันที่ดูรายงาน</label><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="hd" type="date" style="flex:1;min-width:160px"><button class="b" data-q="0">วันนี้</button><button class="b" data-q="1">เมื่อวาน</button><button class="b" data-q="">ทั้งหมด</button></div><div class="k" id="hc" style="margin-top:8px"></div></div><div class="c" id="hl"></div></section>
 
@@ -115,140 +265,314 @@ body.pdfm{padding:0!important;background:#fff}.pdfm *,.pdfm *::before,.pdfm *::a
 <div class="c"><b>ประวัติสถานะ</b><div id="dhs"></div></div>
 </section>
 </main>
-<div id="md" class="ov hide" role="dialog" aria-modal="true" aria-label="ตรวจสอบรายการ"><div class="c"><h2>ตรวจสอบก่อนส่งรายงาน</h2><div id="sm"></div><div style="display:flex;gap:8px;margin-top:16px"><button class="b" id="bk" style="flex:1">แก้ไข</button><button class="b p" id="ok" style="flex:2">ยืนยันส่งรายงาน</button></div></div></div>
-<div id="em" class="ov hide" role="dialog" aria-modal="true" aria-label="แก้ไขรายงาน"><form class="c" id="ef"><h2>แก้ไขรายงาน (ผู้ดูแล)</h2><label class="l" for="eby" style="margin-top:0">ชื่อผู้แจ้ง</label><input id="eby" required><label class="l" for="eat">วัน-เวลาที่พบ</label><input id="eat" type="datetime-local" required><label class="l" for="ety">ประเภทปัญหา</label><select id="ety"></select><label class="l" for="epl">ตำแหน่ง/ช่องที่เกิดปัญหา</label><input id="epl"><label class="l" for="efx">แก้ไขอย่างไร</label><select id="efx"><option>ยังไม่ได้แก้ไข</option><option>รีสตาร์ทเครื่อง</option><option>แก้ไขเอง</option><option>เรียกช่าง</option></select><label class="l" for="est">สถานะปัจจุบัน</label><select id="est"><option value="open">ยังไม่ได้แก้ไข</option><option value="tech">เรียกช่างแล้ว</option><option value="done">แก้ไขเรียบร้อย</option></select><label class="l" for="eno">รายละเอียดเพิ่มเติม</label><textarea id="eno" rows="3"></textarea><div id="efl"></div><div style="display:flex;gap:8px;margin-top:16px"><button type="button" class="b" id="ec" style="flex:1">ยกเลิก</button><button class="b p" style="flex:2">บันทึกการแก้ไข</button></div></form></div>
+<dialog id="md" class="ov hide" aria-label="ตรวจสอบรายการ"><div class="c"><h2>ตรวจสอบก่อนส่งรายงาน</h2><div id="sm"></div><div style="display:flex;gap:8px;margin-top:16px"><button class="b" id="bk" style="flex:1">แก้ไข</button><button class="b p" id="ok" style="flex:2">ยืนยันส่งรายงาน</button></div></div></dialog>
+<dialog id="em" class="ov hide" aria-label="แก้ไขรายงาน"><form class="c" id="ef"><h2>แก้ไขรายงาน (ผู้ดูแล)</h2><label class="l" for="eby" style="margin-top:0">ชื่อผู้แจ้ง</label><input id="eby" required><label class="l" for="eat">วัน-เวลาที่พบ</label><input id="eat" type="datetime-local" required><label class="l" for="ety">ประเภทปัญหา</label><select id="ety"></select><label class="l" for="epl">ตำแหน่ง/ช่องที่เกิดปัญหา</label><input id="epl"><label class="l" for="eimpact">ผลกระทบต่อการจ่ายยา</label><select id="eimpact"><option value="">ไม่ระบุ (รายงานเดิม)</option><option value="working">ยังจ่ายยาได้</option><option value="stopped">จ่ายยาไม่ได้</option><option value="unknown">ยังไม่ทราบ</option></select><label class="l" for="efx">แก้ไขอย่างไร</label><select id="efx"><option>ยังไม่ได้แก้ไข</option><option>รีสตาร์ทเครื่อง</option><option>แก้ไขเอง</option><option>เรียกช่าง</option></select><label class="l" for="est">สถานะปัจจุบัน</label><select id="est"><option value="open">ยังไม่ได้แก้ไข</option><option value="tech">เรียกช่างแล้ว</option><option value="done">แก้ไขเรียบร้อย</option></select><label class="l" for="eno">รายละเอียดเพิ่มเติม</label><textarea id="eno" rows="3"></textarea><div id="efl"></div><div style="display:flex;gap:8px;margin-top:16px"><button type="button" class="b" id="ec" style="flex:1">ยกเลิก</button><button class="b p" style="flex:2">บันทึกการแก้ไข</button></div></form></dialog>
 <div id="toast" class="hide" role="status"></div>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbyLARR8nJogTzorzbojM2My9c0fBIOWZMgQKHCumv12pYq5DhepTNHTL84ViDMmAuh9qA/exec"; // วางลิงก์ Web app ของ Apps Script ที่นี่
+const API_URL="https://script.google.com/macros/s/AKfycbymtQD_ViN4gKn0Lq9d8O4KhwF7cTE803yRa6Sk9VH67DtXm-p4uoKym6CauAxtfqnwOQ/exec"; // วางลิงก์ Web app ของ Apps Script ที่นี่
 const $=s=>document.querySelector(s),z=x=>String(x).padStart(2,"0"),TH=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],PAL=["#5B8DB8","#8CB2D5","#2F5F8A","#E5A13A","#D2543F","#6C7BD9"],
 esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])),
 ls={get:k=>{try{return localStorage.getItem(k)}catch(_){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(_){}},del:k=>{try{localStorage.removeItem(k)}catch(_){}}},
 I=p=>`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`,
 fmt=a=>(a=String(a),`${a.slice(8,10)}/${a.slice(5,7)}/${+a.slice(0,4)+543} ${a.slice(11,16)}`);
 let mem="",D={types:[],reports:[]},T=[],mode="month",P=null,V="dash";
-const S={get pin(){try{return sessionStorage.getItem("pin")||mem}catch(_){return mem}},set pin(v){mem=v;try{sessionStorage.setItem("pin",v)}catch(_){}}};
+const S={pin:""};
+ls.del("cache");
+try{sessionStorage.removeItem("pin");sessionStorage.removeItem("ap")}catch(_){}
+const IMPACT={working:"ยังจ่ายยาได้",stopped:"จ่ายยาไม่ได้",unknown:"ยังไม่ทราบ"};
+const EXPLAIN={bad:"ตรวจสอบข้อมูล แล้วลองส่งอีกครั้ง",type:"ประเภทนี้ถูกแก้ไข กรุณาเลือกประเภทอีกครั้ง",busy:"ระบบกำลังบันทึกรายการอื่น ลองใหม่อีกครั้ง",setup:"ยังไม่ได้ตั้งรหัสใน Apps Script",pin:"รหัส PIN ไม่ถูกต้อง",net:"เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง",server:"บันทึกไม่สำเร็จ กรุณาลองอีกครั้ง"};
 const NAV=[["day","วันนี้",'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>'],["dash","สรุป",'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>'],["hist","ประวัติ",'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'],["set","ตั้งค่า",'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>']],
-TT={det:"รายละเอียดรายงาน",day:"วันนี้",dash:"สรุปปัญหา",form:"แจ้งปัญหา",hist:"ประวัติรายงาน",set:"ตั้งค่า"},
+TT={pending:"ติดตามเคสค้าง",det:"รายละเอียดรายงาน",day:"วันนี้",dash:"สรุปปัญหา",form:"แจ้งปัญหา",hist:"ประวัติรายงาน",set:"ตั้งค่า"},
 MOON='<path d="M21 13a9 9 0 1 1-10-10 7 7 0 0 0 10 10z"/>',SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
 $("#nav").innerHTML='<div class="logo"><img data-logo class="lgi" width="52" height="52" alt="โลโก้โรงพยาบาลนครนายก"></div>'+NAV.map(([v,t,p])=>`<button data-v="${v}" aria-label="${t}">${I(p)}<span>${t}</span></button>`).join("");
-let AP="";try{AP=sessionStorage.getItem("ap")||""}catch(_){}
-function setAP(v){AP=v;try{sessionStorage.setItem("ap",v)}catch(_){}ra();rh();rd()}
+let AP="";
+function setAP(value){AP=value;ra();rh();rd();if(V==="det")rdt()}
 function ra(){$("#ast").textContent=AP?"โหมดผู้ดูแลเปิดอยู่: แก้ไข/ลบรายงานและจัดการประเภทได้":"ผู้ใช้ทั่วไป: แจ้งปัญหาและดูรายงานได้";$("#ab").textContent=AP?"ออกจากโหมดผู้ดูแล":"เข้าโหมดผู้ดูแล (ใส่รหัสผู้ดูแล)"}
 $("#ab").onclick=async()=>{if(AP)return setAP("");const a=prompt("รหัสผู้ดูแล");if(!a)return;const j=await api({action:"checkAdmin",adminPin:a});if(j.error)return toast("รหัสผู้ดูแลไม่ถูกต้อง");setAP(a);toast("เข้าโหมดผู้ดูแลแล้ว")};
-function setTheme(t,tmp){document.documentElement.dataset.theme=t;if(!tmp)ls.set("theme",t);$("#tg").innerHTML=I(t=="dark"?SUN:MOON);document.querySelectorAll(".th").forEach(b=>b.classList.toggle("on",b.dataset.t==t))}
+function setTheme(t,tmp){if(!["light","dark"].includes(t))t="light";document.documentElement.dataset.theme=t;document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#2a0b66":"#fdf3ea";$("#tg").setAttribute("aria-pressed",String(t==="dark"));if(!tmp)ls.set("theme",t);$("#tg").innerHTML=I(t=="dark"?SUN:MOON);document.querySelectorAll(".th").forEach(b=>b.classList.toggle("on",b.dataset.t==t))}
 $("#tg").onclick=()=>setTheme(document.documentElement.dataset.theme=="dark"?"light":"dark");document.querySelectorAll(".th").forEach(b=>b.onclick=()=>setTheme(b.dataset.t));
 function demo(b){if(!D.types.length&&!b){D.types=["สายพานดัง","ไฟตู้จัดยาค้าง","จัดยาเสร็จแล้วแต่ตะกร้าไม่ดันออก","อื่น ๆ"];const w=[0,0,0,1,1,2,3],f=["รีสตาร์ทเครื่อง","เรียกช่าง","แก้ไขเอง","ยังไม่ได้แก้ไข"];
 for(let i=0;i<70;i++){const d=new Date(NOW().getTime()-Math.random()*90*864e5);D.reports.push({id:"d"+i,at:`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}T${z(8+Math.floor(Math.random()*8))}:${z(Math.floor(Math.random()*60))}`,by:"ตัวอย่าง",type:D.types[w[Math.floor(Math.random()*7)]],fix:f[Math.floor(Math.random()*4)],place:"",note:""})}}
-if(b&&b.action=="addReport")D.reports.push({id:"n"+Date.now(),...b.report,files:(b.report.files||[]).map(f=>({id:"",name:f.name,type:f.type}))});if(b&&b.action=="saveTypes")D.types=b.types;if(b&&b.action=="checkAdmin")return b.adminPin=="9999"?{ok:true}:{error:"admin"};if(b&&b.action=="updateReport"){const r=D.reports.find(x=>x.id==b.id);if(r){Object.assign(r,b.report);r.files=(r.files||[]).filter(f=>!(b.removeFiles||[]).includes(f.id))}}if(b&&b.action=="deleteReport")D.reports=D.reports.filter(x=>x.id!=b.id);if(b&&b.action=="updateStatus"){const r=D.reports.find(x=>x.id==b.id);if(r){const h=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:ST(r),note:"แจ้งปัญหา"}];h.push({at:nowL(),by:b.by,st:b.status,note:b.note});r.history=h;r.status=b.status}}return D}
-async function api(b){if(!API_URL)return demo(b);try{const r=await fetch(b?API_URL:API_URL+"?pin="+encodeURIComponent(S.pin||""),b?{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({...b,pin:S.pin})}:{});return await r.json()}catch(e){return{error:"net"}}}
+if(b?.action==="addReport"){
+const report={...b.report,files:[],id:b.requestId,no:`DEMO-${String(D.reports.length+1).padStart(4,"0")}`,history:[{at:nowL(),by:b.report.by,st:ST(b.report),note:"แจ้งปัญหา"}]};
+D.reports.push(report);return {ok:true,report};}if(b&&b.action=="saveTypes")D.types=b.types;if(b&&b.action=="checkAdmin")return b.adminPin=="9999"?{ok:true}:{error:"admin"};if(b&&b.action=="updateReport"){const r=D.reports.find(x=>x.id==b.id);if(r){Object.assign(r,b.report);r.files=(r.files||[]).filter(f=>!(b.removeFiles||[]).includes(f.id))}}if(b&&b.action=="deleteReport")D.reports=D.reports.filter(x=>x.id!=b.id);if(b&&b.action=="updateStatus"){const r=D.reports.find(x=>x.id==b.id);if(r){const h=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:ST(r),note:"แจ้งปัญหา"}];h.push({at:nowL(),by:b.by,st:b.status,note:b.note});r.history=h;r.status=b.status}}return D}
+async function api(b){if(!API_URL)return demo(b);try{const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({...b,action:b?.action||"read",pin:S.pin})});return await r.json()}catch(e){return{error:"net"}}}
 function toast(t){const e=$("#toast");e.textContent=t;e.classList.remove("hide");setTimeout(()=>e.classList.add("hide"),3000)}
-const hash=async s=>window.crypto&&crypto.subtle?[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)))].map(x=>x.toString(16).padStart(2,"0")).join(""):"";
-function cache(){try{return JSON.parse(ls.get("cache")||"null")}catch(_){return null}}
-function show(){$("#lock").classList.add("hide");$("#chips").innerHTML=D.types.map(t=>`<label><input type="radio" name="type" value="${esc(t)}" required>${esc(t)}</label>`).join("");render();rh();rd();if(OD&&!$("#v-det").classList.contains("hide"))rdt();if(!HR){const m=/^#r=([\w-]+)/.exec(location.hash);if(m&&D.reports.some(x=>x.id==m[1])){HR=1;od(m[1])}}}
-let LS=0;async function load(){const my=++LS;const j=await api();if(my!==LS)return false;if(j.error){$("#pe").textContent=j.error=="net"?"เชื่อมต่อไม่ได้ ลองใหม่":"รหัส PIN ไม่ถูกต้อง";if(j.error=="pin")ls.del("cache");$("#lock").classList.remove("hide");return false}
-D=j;D.reports.forEach(r=>{r.at=nat(r.at);(r.history||[]).forEach(h=>h.at=nat(h.at))});if(j.admin&&!AP)setAP(S.pin);show();hash(S.pin).then(h=>{if(h)ls.set("cache",JSON.stringify({h,d:D}))});return true}
-async function fast(){const c=cache(),h=await hash(S.pin||"");if(c&&h&&c.h==h){D=c.d;show()}}
-$("#lf").onsubmit=async e=>{e.preventDefault();S.pin=$("#pin").value;const bt=e.target.querySelector("button");bt.disabled=true;bt.textContent="กำลังเข้าสู่ระบบ…";await fast();await load();bt.disabled=false;bt.textContent="เข้าใช้งาน"};
-$("#lo").onclick=()=>{setAP("");S.pin="";ls.del("cache");$("#pin").value="";$("#lock").classList.remove("hide")};
-function nav(v){V=v;["day","dash","form","hist","set","det"].forEach(x=>$("#v-"+x).classList.toggle("hide",x!=v));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v==(v=="form"?"day":v)));$("#ttl").textContent=TT[v];$("#ex").parentElement.classList.toggle("hide",v!="dash");closeX();$("#nw").classList.toggle("hide",v=="form"||v=="day");
-if(v=="set"){T=[...D.types];rt()}if(v=="form"){setAt();if(!$("#by").value)$("#by").value=ls.get("by")||""}scrollTo(0,0)}
+function show(){
+const selected=$("#chips input:checked")?.value;
+$("#chips").innerHTML=D.types.map(t=>`<label><input type="radio" name="type" value="${esc(t)}" required${selected===t?" checked":""}>${esc(t)}</label>`).join("");
+render();rh();rd();if(OD&&V==="det")rdt();
+if(!HR){const m=/^#r=([\w-]+)/.exec(location.hash);if(m&&D.reports.some(x=>x.id===m[1])){HR=1;od(m[1])}}
+}
+function lockUI(locked){
+$("main").inert=locked;$("#nav").inert=locked;$("#lock").classList.toggle("hide",!locked);
+}
+let LS=0;
+async function load(){
+ const request=++LS,j=await api();
+ if(request!==LS)return false;
+ if(j.error){
+   if(!$("#lock").classList.contains("hide")||j.error==="pin"||j.error==="setup"){
+     $("#pe").textContent=EXPLAIN[j.error]||"โหลดรายงานไม่สำเร็จ";
+     lockUI(true);
+   }else toast(EXPLAIN[j.error]||"โหลดรายงานไม่สำเร็จ");
+   return false;
+ }
+ D=j;D.reports.forEach(r=>{r.at=nat(r.at);(r.history||[]).forEach(h=>h.at=nat(h.at))});
+ if(j.admin&&!AP)AP=S.pin;
+ ra();show();lockUI(false);return true;
+}
+$("#lf").onsubmit=async e=>{
+ e.preventDefault();S.pin=$("#pin").value;$("#pe").textContent="";const button=e.target.querySelector("button");
+ button.disabled=true;button.textContent="กำลังเข้าสู่ระบบ…";
+ if(await load())$("#pin").value="";
+ button.disabled=false;button.textContent="เข้าใช้งาน";
+};
+$("#lo").onclick=()=>{
+ ++LS;AP="";S.pin="";D={types:[],reports:[]};OD="";HR=0;lastSaved=null;pendingRequest=null;
+ $("#pin").value="";$("#pe").textContent="";$("#f").reset();clearAttachments();show();nav("day");
+ if(API_URL){lockUI(true);$("#pin").focus()}else load();
+};
+function nav(v){V=v;["day","dash","form","hist","set","det","pending"].forEach(x=>$("#v-"+x).classList.toggle("hide",x!=v));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v==(["form","pending"].includes(v)?"day":v)));$("#ttl").textContent=TT[v];$("#ex").parentElement.classList.toggle("hide",v!="dash");closeX();$("#nw").classList.toggle("hide",v=="form"||v=="day");
+if(v=="set"){T=[...D.types];rt()}if(v=="form"){if(!$("#at").value)setAt();if(!$("#by").value)$("#by").value=ls.get("by")||""}if(v==="pending"){renderPending();$("#pendingText").classList.add("hide")}scrollTo(0,0);$("#ttl").focus({preventScroll:true})}
 document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>nav(b.dataset.v));
 // เวลาทั้งหมดอิงเวลากรุงเทพ (UTC+7) ไม่ขึ้นกับเขตเวลาของเครื่อง: คืน Date ที่ getHours() ฯลฯ ตรงกับเวลากรุงเทพ
 function NOW(){const b=new Date(Date.now()+7*36e5);return new Date(b.getUTCFullYear(),b.getUTCMonth(),b.getUTCDate(),b.getUTCHours(),b.getUTCMinutes(),b.getUTCSeconds())}
 // ปรับค่าเวลาที่ได้จากเซิร์ฟเวอร์ให้อยู่ในรูป YYYY-MM-DDTHH:mm (เวลากรุงเทพ) แม้ได้เป็น ISO แบบ UTC
 function nat(a){a=String(a==null?"":a);const m=/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})(:\d{2}(\.\d+)?)?$/.exec(a);if(m)return m[1];if(/(Z|[+-]\d\d:?\d\d)$/.test(a)){const d=new Date(a);if(!isNaN(d))return new Date(d.getTime()+7*36e5).toISOString().slice(0,16)}return a}
 function setAt(){const n=NOW();$("#at").value=`${n.getFullYear()}-${z(n.getMonth()+1)}-${z(n.getDate())}T${z(n.getHours())}:${z(n.getMinutes())}`}function setNow(){setAt();$("#by").value=ls.get("by")||""}
-function setMode(m){mode=m;document.querySelectorAll(".m").forEach(b=>b.classList.toggle("on",b.dataset.m==m));const p=$("#pv"),n=NOW(),y=n.getFullYear(),mm=z(n.getMonth()+1);p.type=m=="year"?"number":m;p.value=m=="day"?`${y}-${mm}-${z(n.getDate())}`:m=="month"?`${y}-${mm}`:y;syncCal();render()}
-document.querySelectorAll(".m").forEach(b=>b.onclick=()=>setMode(b.dataset.m));$("#pv").onchange=()=>{syncCal();render()};
+function setMode(m,preferred){
+ const old=period(), today=ymd(NOW());
+ const source=preferred||old||today, p=$("#pv");
+ mode=m;
+ document.querySelectorAll(".m").forEach(b=>{b.classList.toggle("on",b.dataset.m===m);b.setAttribute("aria-pressed",String(b.dataset.m===m))});
+ p.type=m==="day"?"date":m==="month"?"month":"number";
+ p.min=m==="year"?"1900":m==="day"?"1900-01-01":"1900-01";p.max=m==="year"?"9999":m==="day"?"9999-12-31":"9999-12";
+ const month=source.length>=7?source.slice(0,7):source+"-"+today.slice(5,7);
+ p.value=m==="day"?(source.length===10?source:month+"-01"):m==="month"?month:source.slice(0,4);
+ $("#periodHelp").textContent=m==="year"?"กรอกปี ค.ศ.":"";
+ syncCal();render();
+}
+function period(){
+ const p=$("#pv"), v=String(p.value||"");
+ const pattern={day:/^\d{4}-\d{2}-\d{2}$/,month:/^\d{4}-\d{2}$/,year:/^\d{4}$/}[mode];
+ return pattern.test(v)&&p.validity.valid?v:"";
+}
+document.querySelectorAll(".m").forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+$("#pv").oninput=()=>{syncCal();render()};
 let CM=null;
-function syncCal(){const v=String($("#pv").value||""),[y,m]=v.split("-").map(Number),n=NOW();CM=mode=="year"?{y,m:y==n.getFullYear()?n.getMonth()+1:12}:{y,m}}
+function syncCal(){const v=period(),[y,m]=v.split("-").map(Number),n=NOW();if(!v){CM=null;return}CM=mode=="year"?{y,m:y==n.getFullYear()?n.getMonth()+1:12}:{y,m}}
 function rc(){if(!CM)return;const {y,m}=CM,dc={};D.reports.forEach(r=>{const a=String(r.at);if(a.startsWith(y+"-"+z(m)))dc[a.slice(0,10)]=(dc[a.slice(0,10)]||0)+1});
 const f=(new Date(y,m-1,1).getDay()+6)%7,dn=new Date(y,m,0).getDate(),td=NOW(),tk=`${td.getFullYear()}-${z(td.getMonth()+1)}-${z(td.getDate())}`;
 let h=["จ","อ","พ","พฤ","ศ","ส","อา"].map(x=>`<b>${x}</b>`).join("")+"<span></span>".repeat(f);
-for(let d=1;d<=dn;d++){const k=`${y}-${z(m)}-${z(d)}`,c=dc[k]||0;h+=`<button class="cd${c?" r":""}${k==tk?" t":""}" data-d="${k}" title="${c?c+" รายการ":"ไม่พบปัญหา"}" aria-label="${d} ${TH[m-1]} ${y+543} ${c?"พบปัญหา "+c+" รายการ":"ไม่พบปัญหา"}">${d}</button>`}
-$("#cg").innerHTML=h;$("#cmn").textContent=`${TH[m-1]} ${y+543}`;$("#cs").innerHTML=`<i class="sw"></i>วันที่พบปัญหา ${Object.keys(dc).length} วัน จาก ${dn} วัน (วันอื่นไม่พบปัญหา)`}
-$("#cp").onclick=()=>{CM.m--;if(CM.m<1){CM.m=12;CM.y--}rc()};$("#cn").onclick=()=>{CM.m++;if(CM.m>12){CM.m=1;CM.y++}rc()};
-$("#cg").onclick=e=>{const b=e.target.closest("[data-d]");if(b){HD=b.dataset.d;$("#hd").value=HD;nav("hist");rh()}};
-function daysIn(v){const [y,m]=v.split("-").map(Number),n=NOW();if(m)return y==n.getFullYear()&&m==n.getMonth()+1?n.getDate():new Date(y,m,0).getDate();return y==n.getFullYear()?Math.ceil((n-new Date(y,0,1))/864e5):365}
+for(let d=1;d<=dn;d++){const k=`${y}-${z(m)}-${z(d)}`,c=dc[k]||0;h+=`<button class="cd${c?" r":""}${k==tk?" t":""}" data-d="${k}" title="${c?c+" รายการ":"ยังไม่มีรายงาน"}" aria-label="${d} ${TH[m-1]} ${y+543} ${c?"พบปัญหา "+c+" รายการ":"ยังไม่มีรายงาน"}">${d}</button>`}
+$("#cg").innerHTML=h;$("#cmn").textContent=`${TH[m-1]} ${y+543}`;$("#cs").innerHTML=`<i class="sw"></i>มีรายงาน ${Object.keys(dc).length} วัน · ${TH[m-1]} ${y+543}`}
+$("#cp").onclick=()=>{if(!CM)return;CM.m--;if(CM.m<1){CM.m=12;CM.y--}rc()};$("#cn").onclick=()=>{if(!CM)return;CM.m++;if(CM.m>12){CM.m=1;CM.y++}rc()};
+$("#cg").onclick=e=>{const b=e.target.closest("[data-d]");if(b){HD=b.dataset.d;HH="";$("#hd").value=HD;nav("hist");rh()}};
 function lab(v){const [y,m,d]=v.split("-").map(Number);return d?`${d} ${TH[m-1]} ${y+543}`:m?`${TH[m-1]} ${y+543}`:`ปี ${y+543}`}
-function render(){rc();const v=String($("#pv").value||"");if(!v)return;const [y,m]=v.split("-").map(Number),R=D.reports.filter(r=>String(r.at).startsWith(v)),n=R.length,days=mode=="day"?1:daysIn(v);
-$("#pl").textContent="สรุป"+{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]+" · "+lab(v);$("#pd").textContent=lab(v)+" · สร้างเมื่อ "+NOW().toLocaleDateString("th-TH");
-$("#k1").textContent=n;$("#k2").textContent=R.filter(r=>ST(r)=="done").length;$("#k3").textContent=R.filter(r=>ST(r)=="open").length;$("#k4").textContent=R.filter(r=>ST(r)=="tech").length;
-const keys=mode=="day"?[...Array(24).keys()]:mode=="month"?[...Array(new Date(y,m,0).getDate()).keys()].map(i=>i+1):[...Array(12).keys()].map(i=>i+1),
-cnt=keys.map(k=>R.filter(r=>{const a=String(r.at);return +(mode=="day"?a.slice(11,13):mode=="month"?a.slice(8,10):a.slice(5,7))==k}).length),mx=Math.max(1,...cnt);
-$("#ct").textContent="จำนวนปัญหา"+{day:"รายชั่วโมง",month:"รายวัน",year:"รายเดือน"}[mode];
-$("#bars").innerHTML=cnt.map(c=>`<div class="bar" title="${c} ครั้ง" style="height:${c/mx*100}%${c==mx&&c?";background:var(--pd)":""}"></div>`).join("");const st=keys.length>24?4:keys.length>12?2:1;$("#lb").innerHTML=keys.map((k,i)=>`<span style="overflow:visible;white-space:nowrap">${i%st?"":mode=="year"?TH[k-1]:k}</span>`).join("");
-const tc={};R.forEach(r=>tc[r.type]=(tc[r.type]||0)+1);const ts=Object.entries(tc).sort((a,b)=>b[1]-a[1]);let acc=0;
-$("#dn").innerHTML=n?`<svg viewBox="0 0 36 36" width="190" height="190" style="max-width:100%;height:auto;flex:none" role="img" aria-label="สัดส่วนประเภทปัญหา"><circle cx="18" cy="18" r="14" fill="none" stroke="var(--bd)" stroke-width="5"/>${ts.map(([t,c],i)=>{const p=c/n*100,g=ts.length>1?Math.min(.8,p/3):0,s=`<circle cx="18" cy="18" r="14" fill="none" stroke="${PAL[i%6]}" stroke-width="5" pathLength="100" stroke-dasharray="${p-g} ${100-p+g}" stroke-dashoffset="${-acc}" transform="rotate(-90 18 18)"/>`;acc+=p;return s}).join("")}<text x="18" y="19" text-anchor="middle" font-size="8" font-weight="700" style="fill:var(--tx)">${n}</text><text x="18" y="23.5" text-anchor="middle" font-size="2.6" style="fill:var(--mu)">ครั้ง</text></svg><div style="flex:1;min-width:180px">${ts.map(([t,c],i)=>`<div class="lg"><i style="background:${PAL[i%6]}"></i><span>${esc(t)}</span><b>${Math.round(c/n*100)}%</b><span class="k">(${c})</span></div>`).join("")}</div>`:'<div class="emp">ยังไม่มีรายงานในช่วงนี้</div>';
-const bv=mode=="day"?v.slice(0,7):v,BR=D.reports.filter(r=>String(r.at).startsWith(bv)),bd=daysIn(bv),ty={};BR.forEach(r=>(ty[r.type]=ty[r.type]||[]).push(String(r.at).slice(0,10)));
-const ls2=Object.entries(ty).map(([t,a])=>[t,new Set(a).size/bd*100,a.length]).sort((a,b)=>b[1]-a[1]);
-$("#lkn").textContent="แสดงว่า"+(mode=="year"?"":"เดือน ")+lab(bv)+" พบปัญหาเกิดขึ้นกี่เคส";
-$("#lk").innerHTML=ls2.map(([t,p,a])=>{const q=Math.min(100,p),g=q>=50?["บ่อย","bad"]:q>=20?["ปานกลาง","warn"]:["นาน ๆ ครั้ง",""];return `<div style="margin-top:12px"><div style="display:flex;gap:8px;align-items:center"><span style="flex:1">${esc(t)}</span><span class="ch ${g[1]}">${g[0]}</span></div><div class="mt"><i style="width:${q}%"></i></div><div class="k">เกิดขึ้น ${a} ครั้ง ใน${mode=="year"?"":"เดือน "}${lab(bv)}</div></div>`}).join("")||'<div class="emp">ยังไม่มีข้อมูล</div>'}
-let HD="";
-const FX=f=>f.id?(String(f.type).startsWith("image/")?`<a href="https://drive.google.com/file/d/${esc(f.id)}/view" target="_blank" rel="noopener"><img src="https://drive.google.com/thumbnail?id=${esc(f.id)}&amp;sz=w240" loading="lazy" alt="${esc(f.name)}"></a>`:`<a class="ch" href="https://drive.google.com/file/d/${esc(f.id)}/view" target="_blank" rel="noopener">คลิป: ${esc(f.name)}</a>`):"";
-function rh(){const A=[...D.reports].filter(r=>!HD||String(r.at).startsWith(HD)).sort((a,b)=>String(b.at)<String(a.at)?-1:1),L=HD?A:A.slice(0,100);
-$("#hc").textContent=HD?`${lab(HD)} · ${A.length} รายการ`:`แสดงล่าสุด ${L.length} จากทั้งหมด ${A.length} รายการ`;
-$("#hl").innerHTML=L.map(r=>`<div class="t" style="align-items:flex-start" data-o="${esc(r.id||"")}"><div style="flex:1;min-width:0"><b>${esc(r.type)}</b>${r.place?" · "+esc(r.place):""}<div class="k">${fmt(r.at)} · ${esc(r.by)}</div>${r.note?`<div class="k">${esc(r.note)}</div>`:""}${(r.files||[]).filter(f=>f.id).length?`<div class="fs">${r.files.map(FX).join("")}</div>`:""}${AP&&r.id?`<div style="display:flex;gap:6px;margin-top:8px"><button class="b" data-e="${esc(r.id)}" style="min-height:36px;padding:0 14px">แก้ไข</button><button class="b" data-x="${esc(r.id)}" style="min-height:36px;padding:0 14px;color:var(--bad);border-color:var(--bad)">ลบ</button></div>`:""}</div><span class="ch ${SC[ST(r)]}">${SL[ST(r)]}</span></div>`).join("")||'<div class="emp">ไม่มีรายงานในวันที่เลือก</div>'}
-$("#hd").onchange=()=>{HD=$("#hd").value;rh()};
+function countsByType(reports){
+ const groups=new Map();
+ for(const r of reports){
+   if(!groups.has(r.type))groups.set(r.type,{count:0,dates:new Set()});
+   const group=groups.get(r.type);group.count++;group.dates.add(String(r.at).slice(0,10));
+ }
+ return [...groups].sort((a,b)=>b[1].count-a[1].count);
+}
+function render(){
+ const v=period(), valid=!!v;
+ $("#ex").disabled=!valid;
+ [...$("#v-dash").children].filter(el=>!el.classList.contains("ctl")&&el.id!=="pl").forEach(el=>el.classList.toggle("hide",!valid));
+ if(!valid){$("#pl").textContent="เลือกช่วงเวลาเพื่อดูรายงาน";return}
+ rc();
+ const [y,m]=v.split("-").map(Number), reports=D.reports.filter(r=>String(r.at).startsWith(v)), n=reports.length;
+ $("#pl").textContent="สรุป"+{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]+" · "+lab(v);
+ $("#pd").textContent=lab(v)+" · สร้างเมื่อ "+fmt(nowL())+" น.";
+ $("#exportPeriod").textContent="ช่วงที่เลือก · "+lab(v);
+ $("#k1").textContent=n;
+ [["#k2","done"],["#k3","open"],["#k4","tech"]].forEach(([id,status])=>$(id).textContent=reports.filter(r=>ST(r)===status).length);
+ const keys=mode==="day"?Array.from({length:24},(_,i)=>i):Array.from({length:mode==="month"?new Date(y,m,0).getDate():12},(_,i)=>i+1);
+ const bins=new Map();
+ for(const r of reports){
+   const at=String(r.at), key=+(mode==="day"?at.slice(11,13):mode==="month"?at.slice(8,10):at.slice(5,7));
+   bins.set(key,(bins.get(key)||0)+1);
+ }
+ const max=Math.max(1,...bins.values());
+ const label=k=>mode==="day"?z(k)+":00 น.":mode==="year"?TH[k-1]:String(k);
+ $("#ct").textContent="จำนวนรายงาน"+{day:"รายชั่วโมง",month:"รายวัน",year:"รายเดือน"}[mode];
+ $("#bars").innerHTML=keys.map(k=>{
+   const count=bins.get(k)||0, text=`${label(k)} · ${count} รายงาน`;
+   return `<button type="button" class="bar" data-bin="${k}" aria-label="${text}" title="${text}"><span style="height:${count/max*100}%"></span></button>`;
+ }).join("");
+ const spacing=keys.length>24?4:keys.length>12?4:2;
+ $("#lb").innerHTML=keys.map((k,i)=>`<span>${i%spacing?"":mode==="day"?z(k):label(k)}</span>`).join("");
+ const ranked=countsByType(reports);
+ $("#lkn").textContent="จำนวนครั้งและจำนวนวันที่มีรายงาน · "+lab(v);
+ $("#lk").innerHTML=ranked.map(([type,{count,dates}])=>`<div class="rank"><div><b>${esc(type)}</b><span>${count} ครั้ง · ${dates.size} วัน</span></div><div class="mt" aria-hidden="true"><i style="width:${count/ranked[0][1].count*100}%"></i></div></div>`).join("")||'<div class="emp">ยังไม่มีรายงานในช่วงนี้</div>';
+}
+$("#bars").onclick=e=>{
+ const button=e.target.closest("[data-bin]"),v=period();
+ if(!button||!v)return;
+ const key=z(button.dataset.bin);
+ if(mode==="year"){setMode("month",v+"-"+key);return}
+ HD=mode==="day"?v:v+"-"+key;
+ HH=mode==="day"?key:"";
+ $("#hd").value=HD;nav("hist");rh();
+};
+let HD="",HH="";
+const FX=f=>f.id?`<a class="ch" href="https://drive.google.com/file/d/${esc(f.id)}/view" target="_blank" rel="noopener">เปิดไฟล์: ${esc(f.name)}</a>`:"";
+const caseButton=r=>r.id?`<button type="button" class="b case-link" data-detail="${esc(r.id)}">ดูรายละเอียด ›</button>`:"";
+function rh(){const A=[...D.reports].filter(r=>(!HD||String(r.at).startsWith(HD))&&(!HH||String(r.at).slice(11,13)===HH)).sort((a,b)=>String(b.at)<String(a.at)?-1:1),L=HD?A:A.slice(0,100);
+$("#hc").textContent=HD?`${lab(HD)}${HH?" · "+HH+":00 น.":""} · ${A.length} รายการ`:`แสดงล่าสุด ${L.length} จากทั้งหมด ${A.length} รายการ`;
+$("#hl").innerHTML=L.map(r=>`<div class="t" style="align-items:flex-start" data-o="${esc(r.id||"")}"><div style="flex:1;min-width:0"><b>${esc(r.type)}</b>${r.place?" · "+esc(r.place):""}<div class="k">${fmt(r.at)} · ${esc(r.by)}</div>${r.note?`<div class="k">${esc(r.note)}</div>`:""}${(r.files||[]).filter(f=>f.id).length?`<div class="fs">${r.files.map(FX).join("")}</div>`:""}${AP&&r.id?`<div style="display:flex;gap:6px;margin-top:8px"><button class="b" data-e="${esc(r.id)}" style="min-height:36px;padding:0 14px">แก้ไข</button><button class="b" data-x="${esc(r.id)}" style="min-height:36px;padding:0 14px;color:var(--bad);border-color:var(--bad)">ลบ</button></div>`:""}</div><span class="ch ${SC[ST(r)]}">${SL[ST(r)]}</span>${caseButton(r)}</div>`).join("")||'<div class="emp">ไม่มีรายงานในวันที่เลือก</div>'}
+$("#hd").onchange=()=>{HD=$("#hd").value;HH="";rh()};
+function openDialog(selector){
+ const dialog=$(selector);
+ dialog.classList.remove("hide");
+ dialog.showModal();
+}
+function closeDialog(selector){
+ const dialog=$(selector);
+ dialog.close();
+ dialog.classList.add("hide");
+}
+for(const selector of ["#md","#em"]){
+ $(selector).addEventListener("cancel",event=>{
+   event.preventDefault();
+   if(selector==="#md")$("#bk").click();
+   else if(!$("#ef button.p").disabled)$("#ec").click();
+ });
+}
 let ER=null;
 $("#hl").onclick=async e=>{const x=e.target.closest("[data-x]"),d=e.target.closest("[data-e]");
-if(d){ER=D.reports.find(r=>r.id==d.dataset.e);if(!ER)return;$("#eby").value=ER.by||"";$("#eat").value=String(ER.at).slice(0,16);$("#epl").value=ER.place||"";$("#efx").value=ER.fix;$("#est").value=ST(ER);$("#eno").value=ER.note||"";
+if(d){ER=D.reports.find(r=>r.id==d.dataset.e);if(!ER)return;$("#eby").value=ER.by||"";$("#eat").value=String(ER.at).slice(0,16);$("#epl").value=ER.place||"";$("#efx").value=ER.fix;$("#est").value=ST(ER);$("#eimpact").value=ER.impact||"";$("#eno").value=ER.note||"";
 const ty=[...D.types];if(!ty.includes(ER.type))ty.push(ER.type);$("#ety").innerHTML=ty.map(t=>`<option${t==ER.type?" selected":""}>${esc(t)}</option>`).join("");
-$("#efl").innerHTML=(ER.files||[]).filter(f=>f.id).map(f=>`<label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input type="checkbox" style="width:auto;min-height:0" value="${esc(f.id)}">ลบไฟล์แนบ: ${esc(f.name)}</label>`).join("");$("#em").classList.remove("hide")}
+$("#efl").innerHTML=(ER.files||[]).filter(f=>f.id).map(f=>`<label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input type="checkbox" style="width:auto;min-height:0" value="${esc(f.id)}">ลบไฟล์แนบ: ${esc(f.name)}</label>`).join("");openDialog("#em")}
 if(x){const r=D.reports.find(q=>q.id==x.dataset.x);if(!r||!confirm(`ลบรายงานนี้?\n${r.type} · ${fmt(r.at)}\nการลบไม่สามารถกู้คืนจากหน้าเว็บได้`))return;
 const j=await api({action:"deleteReport",adminPin:AP,id:r.id});if(j.error){if(j.error=="admin")setAP("");return toast(j.error=="admin"?"รหัสผู้ดูแลไม่ถูกต้อง":"ลบไม่สำเร็จ")}
 if(API_URL)D.reports=D.reports.filter(q=>q.id!=r.id);toast("ลบรายงานแล้ว");show();load()}};
-$("#ec").onclick=()=>$("#em").classList.add("hide");
+$("#ec").onclick=()=>closeDialog("#em");
 $("#ef").onsubmit=async e=>{e.preventDefault();const bt=e.target.querySelector("button.p");bt.disabled=true;const rm=[...document.querySelectorAll("#efl input:checked")].map(i=>i.value),
-nr={at:$("#eat").value,by:$("#eby").value,type:$("#ety").value,place:$("#epl").value,fix:$("#efx").value,note:$("#eno").value,status:$("#est").value},j=await api({action:"updateReport",adminPin:AP,id:ER.id,report:nr,removeFiles:rm});bt.disabled=false;
+nr={at:$("#eat").value,by:$("#eby").value,type:$("#ety").value,place:$("#epl").value,fix:$("#efx").value,note:$("#eno").value,status:$("#est").value,impact:$("#eimpact").value},j=await api({action:"updateReport",adminPin:AP,id:ER.id,report:nr,removeFiles:rm});bt.disabled=false;
 if(j.error){if(j.error=="admin")setAP("");return toast(j.error=="admin"?"รหัสผู้ดูแลไม่ถูกต้อง":"บันทึกไม่สำเร็จ")}
-if(API_URL){Object.assign(ER,nr);ER.files=(ER.files||[]).filter(f=>!rm.includes(f.id))}$("#em").classList.add("hide");toast("บันทึกการแก้ไขแล้ว");show();load()};
-document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const q=b.dataset.q;if(q==="")HD="";else{const d=NOW();d.setDate(d.getDate()-q);HD=`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`}$("#hd").value=HD;rh()});
-$("#f").onsubmit=e=>{e.preventDefault();P=Object.fromEntries(new FormData(e.target));P.files=FL.map(({name,type,data})=>({name,type,data}));$("#sm").innerHTML=[["ผู้แจ้ง",P.by],["วัน-เวลา",fmt(P.at)],["ประเภทปัญหา",P.type],["ตำแหน่ง",P.place||"-"],["แก้ไขอย่างไร",P.fix],["รายละเอียด",P.note||"-"],["ไฟล์แนบ",FL.length?FL.map(x=>x.name).join(", "):"ไม่มี"]].map(([a,b])=>`<div class="t"><span class="k" style="width:110px;flex:none">${a}</span><span style="flex:1">${esc(b)}</span></div>`).join("");$("#md").classList.remove("hide");$("#ok").focus()};
-$("#bk").onclick=()=>$("#md").classList.add("hide");
-let FL=[];const MV=10e6;
-const b64=f=>new Promise(r=>{const x=new FileReader();x.onload=()=>r(String(x.result).split(",")[1]);x.readAsDataURL(f)});
-async function sq(f){try{const u=URL.createObjectURL(f),i=new Image();await new Promise((a,b)=>{i.onload=a;i.onerror=b;i.src=u});const k=Math.min(1,1280/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext("2d").drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);return await new Promise(r=>c.toBlob(r,"image/jpeg",.78))}catch(_){return f.size<3e6?f:null}}
+if(API_URL){Object.assign(ER,nr);ER.files=(ER.files||[]).filter(f=>!rm.includes(f.id))}closeDialog("#em");toast("บันทึกการแก้ไขแล้ว");show();load()};
+document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{HH="";const q=b.dataset.q;if(q==="")HD="";else{const d=NOW();d.setDate(d.getDate()-q);HD=`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`}$("#hd").value=HD;rh()});
+let lastSaved=null,pendingRequest=null;
+const getRequestId=()=>crypto.randomUUID?crypto.randomUUID():[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,"0")).join("").replace(/^(........)(....)(....)(....)(............)$/,"$1-$2-$3-$4-$5");
+$("#f").onsubmit=e=>{e.preventDefault();if(loadingFiles)return toast("กำลังเตรียมไฟล์แนบ");P=Object.fromEntries(new FormData(e.target));P.by=P.by.trim();if(!P.by){$("#by").focus();return toast("กรุณากรอกชื่อผู้แจ้ง")}if(!P.type)return toast("กรุณาเลือกประเภทปัญหา");P.files=FL.map(({name,type,data})=>({name,type,data}));const signature=JSON.stringify(P);if(pendingRequest?.signature!==signature)pendingRequest={id:getRequestId(),signature};$("#sm").innerHTML=[["ผู้แจ้ง",P.by],["วัน-เวลา",fmt(P.at)],["ประเภทปัญหา",P.type],["ผลกระทบ",IMPACT[P.impact]],["ตำแหน่ง",P.place||"-"],["แก้ไขอย่างไร",P.fix],["รายละเอียด",P.note||"-"],["ไฟล์แนบ",FL.length?FL.map(x=>x.name).join(", "):"ไม่มี"]].map(([a,b])=>`<div class="t"><span class="k" style="width:110px;flex:none">${a}</span><span style="flex:1">${esc(b)}</span></div>`).join("");openDialog("#md");$("#ok").focus()};
+$("#bk").onclick=()=>{if(!$("#ok").disabled){closeDialog("#md");$("#f .fa button").focus()}};
+let FL=[],loadingFiles=false;
+const MV=10e6, supportedFile=/^(?:image\/(?:jpeg|png|webp|gif|avif|heic|heif)|video\/(?:mp4|quicktime|webm|3gpp|x-m4v|mpeg|ogg|x-msvideo))$/i;
+const b64=f=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(",")[1]);reader.onerror=reject;reader.onabort=reject;reader.readAsDataURL(f)});
+async function sq(f){
+ const url=URL.createObjectURL(f);
+ try{
+   const img=new Image();img.src=url;await img.decode();
+   const scale=Math.min(1,1280/Math.max(img.width,img.height)),canvas=document.createElement("canvas");
+   canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+   canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+   return await new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.78))||f;
+ }catch(_){return f}finally{URL.revokeObjectURL(url)}
+}
 function rf(){$("#fp").innerHTML=FL.map((x,i)=>`<div>${x.type.startsWith("image/")?`<img src="${x.url}" alt="">`:`<span class="ch">คลิป</span>`}<span>${esc(x.name)} · ${(x.size/1e6).toFixed(1)} MB</span><button type="button" data-r="${i}" aria-label="ลบไฟล์">×</button></div>`).join("")}
+function clearAttachments(){FL.forEach(file=>URL.revokeObjectURL(file.url));FL=[];rf()}
 $("#fb").onclick=()=>$("#fl").click();
-$("#fl").onchange=async e=>{for(const f of e.target.files){if(FL.length>=3){toast("แนบได้ไม่เกิน 3 ไฟล์");break}const v=f.type.startsWith("video/"),m=f.type.startsWith("image/");if(!v&&!m){toast("แนบได้เฉพาะรูปภาพหรือคลิปวิดีโอ");continue}
-if(v&&f.size>MV){toast("คลิปใหญ่เกิน 10 MB ลองถ่ายให้สั้นลง");continue}const bl=m?await sq(f):f;if(!bl){toast("อ่านรูปไม่สำเร็จ");continue}
-FL.push({name:m?f.name.replace(/\.[^.]+$/,"")+".jpg":f.name,type:m?"image/jpeg":f.type,size:bl.size,data:await b64(bl),url:URL.createObjectURL(bl)})}e.target.value="";rf()};
-$("#fp").onclick=e=>{const r=e.target.dataset.r;if(r!==undefined){FL.splice(r,1);rf()}};
-$("#ok").onclick=async()=>{const bt=$("#ok");bt.disabled=true;bt.textContent=P.files.length?"กำลังอัปโหลดไฟล์…":"กำลังบันทึก…";const j=await api({action:"addReport",report:P});bt.disabled=false;bt.textContent="ยืนยันส่งรายงาน";$("#md").classList.add("hide");
-if(j.error)return toast(P.files.length?"ส่งไม่สำเร็จ ลองลดจำนวน/ขนาดไฟล์แล้วส่งใหม่":"ส่งไม่สำเร็จ ลองใหม่อีกครั้ง");ls.set("by",P.by);$("#f").reset();setNow();toast("บันทึกรายงานแล้ว");if(API_URL)D.reports.push({...P,files:[]});FL=[];rf();DY="";show();nav("day");load()};
+$("#fl").onchange=async e=>{
+ if(loadingFiles)return;
+ loadingFiles=true;$("#fb").disabled=true;
+ try{
+   for(const f of e.target.files){
+     if(FL.length>=3){toast("แนบได้ไม่เกิน 3 ไฟล์");break}
+     if(!supportedFile.test(f.type)){toast("รูปแบบไฟล์นี้ยังไม่รองรับ");continue}
+     const blob=f.type.startsWith("image/")?await sq(f):f;
+     if(!blob.size||blob.size>MV){toast("ไฟล์แนบต้องมีขนาดไม่เกิน 10 MB");continue}
+     const data=await b64(blob);
+     FL.push({name:blob!==f?f.name.replace(/\.[^.]+$/,"")+".jpg":f.name,type:blob.type,size:blob.size,data,url:URL.createObjectURL(blob)});
+   }
+ }catch(_){toast("อ่านไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง")}finally{loadingFiles=false;$("#fb").disabled=false;e.target.value="";rf()}
+};
+$("#fp").onclick=e=>{const i=e.target.dataset.r;if(i===undefined)return;const [removed]=FL.splice(Number(i),1);if(removed)URL.revokeObjectURL(removed.url);rf()};
+$("#ok").onclick=async()=>{
+ const button=$("#ok");button.disabled=true;$("#bk").disabled=true;
+ button.textContent=P.files.length?"กำลังอัปโหลดไฟล์…":"กำลังบันทึก…";
+ const result=await api({action:"addReport",report:P,requestId:pendingRequest.id});
+ button.disabled=false;$("#bk").disabled=false;button.textContent="ยืนยันส่งรายงาน";
+ if(result.error){
+   if(result.error==="type"){closeDialog("#md");await load()}
+   toast(EXPLAIN[result.error]||"ส่งไม่สำเร็จ ลองใหม่อีกครั้ง");return;
+ }
+ const report=result.report;
+ if(!report?.id){toast("ระบบไม่ได้ส่งเลขรายงานกลับมา กรุณาตรวจสอบเวอร์ชัน Apps Script");return}
+ if(API_URL&&!D.reports.some(r=>r.id===report.id))D.reports.push(report);
+ lastSaved=report;pendingRequest=null;ls.set("by",report.by);
+ closeDialog("#md");$("#f").reset();setNow();clearAttachments();
+ DY=ymd(NOW());show();nav("day");
+};
 function rt(){$("#tl").innerHTML=T.map((t,i)=>`<div class="row"><input value="${esc(t)}" data-i="${i}" aria-label="ชื่อประเภท"><button class="b" data-d="${i}">ลบ</button></div>`).join("")}
 $("#tl").oninput=e=>{if(e.target.dataset.i)T[e.target.dataset.i]=e.target.value};$("#tl").onclick=e=>{if(e.target.dataset.d){T.splice(e.target.dataset.d,1);rt()}};
 $("#ad").onclick=()=>{const v=$("#nt").value.trim();if(v){T.push(v);$("#nt").value="";rt()}};
 $("#sv").onclick=async()=>{const a=AP||prompt("รหัสผู้ดูแล");if(!a)return;const j=await api({action:"saveTypes",adminPin:a,types:T.filter(x=>x.trim())});
 if(j.error)return toast(j.error=="admin"?"รหัสผู้ดูแลไม่ถูกต้อง":"บันทึกไม่สำเร็จ");toast("บันทึกประเภทแล้ว");D.types=T.filter(x=>x.trim());show();load()};
 const lib=()=>{[["l1","html2canvas"],["l2","jspdf"]].forEach(([i,k])=>{if(!window[k])(0,eval)(document.getElementById(i).textContent)})};
-async function pdf(){const bt=$("#ex"),t=document.documentElement.dataset.theme,v=String($("#pv").value||"");bt.disabled=true;bt.textContent="กำลังสร้าง PDF…";setTheme("light",1);nav("dash");document.body.classList.add("pdfm");const el=$("#v-dash");el.style.width="720px";
-try{lib();if(document.fonts)await document.fonts.ready;const cs=getComputedStyle(document.documentElement),sv=$("#dn svg");if(sv)sv.outerHTML=sv.outerHTML.replace(/var\((--[\w-]+)\)/g,(m,n)=>cs.getPropertyValue(n).trim()||"#000");
+async function pdf(){const bt=$("#ex"),t=document.documentElement.dataset.theme,v=period();if(!v)return;bt.disabled=true;bt.textContent="กำลังสร้าง PDF…";setTheme("light",1);nav("dash");document.body.classList.add("pdfm");const el=$("#v-dash");el.style.width="720px";
+try{lib();if(document.fonts)await document.fonts.ready;
 const c=await html2canvas(el,{scale:2,backgroundColor:"#ffffff",windowWidth:800,scrollX:0,scrollY:0}),pd=new jspdf.jsPDF({unit:"mm",format:"a4"}),m=8,W=210-2*m,ph=Math.floor(c.width*(297-2*m)/W);let y=0;const H=297-2*m,hm=c.height*W/c.width;if(hm<=H*1.35){const k=Math.min(1,H/hm),w=W*k;pd.addImage(c.toDataURL("image/jpeg",.92),"JPEG",m+(W-w)/2,m,w,hm*k);y=c.height}
 while(y<c.height){const sl=document.createElement("canvas");sl.width=c.width;sl.height=Math.min(ph,c.height-y);sl.getContext("2d").drawImage(c,0,y,c.width,sl.height,0,0,c.width,sl.height);if(y)pd.addPage();pd.addImage(sl.toDataURL("image/jpeg",.92),"JPEG",m,m,W,sl.height*W/c.width);y+=ph}
 pd.save("รายงานปัญหาหุ่นยนต์จ่ายยา_"+lab(v).replace(/\s+/g,"-")+".pdf");toast("บันทึกไฟล์ PDF แล้ว")}
 catch(e){if(!(window.html2canvas&&window.jspdf)){toast("โหลดตัวสร้าง PDF ไม่ได้ จะเปิดหน้าต่างพิมพ์แทน");await new Promise(r=>setTimeout(r,600));print()}else toast("สร้าง PDF ไม่สำเร็จ: "+(e&&e.message||e))}
 el.style.width="";document.body.classList.remove("pdfm");setTheme(t,1);render();bt.disabled=false;bt.textContent="ส่งออก ▾"}
-setTheme(ls.get("theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));let DY="";const DN=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"],ymd=d=>`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
+setTheme(ls.get("theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));let DY="";
+const outstanding=()=>D.reports.filter(r=>["open","tech"].includes(ST(r))).sort((a,b)=>
+ (Number(b.impact==="stopped")-Number(a.impact==="stopped"))||String(a.at).localeCompare(String(b.at)));
+function pendingCard(r,full){
+ const h=r.history?.at(-1), status=ST(r);
+ return `<div class="pending-case"><div><b>${esc(r.type)}</b> <span class="ch ${SC[status]}">${SL[status]}</span>
+ <div class="k">${full&&r.no?esc(r.no)+" · ":""}${fmt(r.at)}${r.place?" · "+esc(r.place):""}</div>
+ ${r.impact?`<div class="k">${esc(IMPACT[r.impact])}</div>`:""}
+ ${full&&h?`<div class="k">อัปเดตล่าสุด ${fmt(h.at)}${h.note?" · "+esc(h.note):""}</div>`:""}</div>${full?caseButton(r):""}</div>`;
+}
+function renderPending(){
+ const list=outstanding();
+ $("#pendingCount").textContent="· "+list.length+" รายการ";
+ $("#pendingPreview").innerHTML=list.slice(0,2).map(r=>pendingCard(r,false)).join("")||'<p class="k">ไม่มีเคสค้าง</p>';
+ $("#pendingHeading").textContent="ยังไม่ปิดเคส "+list.length+" รายการ";
+ $("#pendingList").innerHTML=list.map(r=>pendingCard(r,true)).join("")||'<p class="k">ไม่มีเคสค้าง</p>';
+ $("#openPending").disabled=!list.length;
+ $("#copyPending").disabled=!list.length;if(!list.length)$("#pendingText").classList.add("hide");
+}
+$("#openPending").onclick=()=>nav("pending");$("#pendingBack").onclick=()=>nav("day");
+$("#pendingList").onclick=e=>{const trigger=e.target.closest("[data-detail]");if(trigger)od(trigger.dataset.detail)};
+$("#copyPending").onclick=async()=>{
+ const rows=outstanding().map(r=>{
+   const latest=r.history?.at(-1);
+   return [r.no||"#"+r.id,r.type,r.place,SL[ST(r)],latest?"อัปเดต "+fmt(latest.at):""].filter(Boolean).join(" · ");
+ });
+ const text=["เคสค้างหุ่นยนต์จ่ายยา OPD · "+fmt(nowL()),...rows].join("\n");
+ try{await navigator.clipboard.writeText(text);toast("คัดลอกสรุปเคสค้างแล้ว")}catch(_){
+   const area=$("#pendingText");area.value=text;area.classList.remove("hide");area.focus();area.select();toast("เลือกข้อความแล้ว กรุณาคัดลอก");
+ }
+};
+$("#viewSaved").onclick=()=>{if(lastSaved)od(lastSaved.id)};
+const DN=["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"],ymd=d=>`${d.getFullYear()}-${z(d.getMonth()+1)}-${z(d.getDate())}`;
 function rd(){const n=NOW();if(!DY)DY=ymd(n);const [y,m,d]=DY.split("-").map(Number),cur=new Date(y,m-1,d),mon=new Date(y,m-1,d-((cur.getDay()+6)%7)),A=D.reports,has=k=>A.some(r=>String(r.at).startsWith(k));
+renderPending();$("#saveResult").classList.toggle("hide",!lastSaved);
+$("#savedNo").textContent=lastSaved?.no||"";
 $("#dtt").textContent=`${DN[cur.getDay()]} ${d} ${TH[m-1]} ${y+543}`;
 $("#wk").innerHTML=[0,1,2,3,4,5,6].map(i=>{const x=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i),k=ymd(x);return `<button data-w="${k}" class="${k==DY?"on":""}" aria-label="${x.getDate()} ${TH[x.getMonth()]}"><small>${["จ","อ","พ","พฤ","ศ","ส","อา"][i]}</small><b>${x.getDate()}</b><i class="${has(k)?"":"o"}"></i></button>`}).join("");
 const R=A.filter(r=>String(r.at).startsWith(DY)).sort((a,b)=>String(b.at)<String(a.at)?-1:1);
 $("#s1").textContent=R.length;$("#s2").textContent=R.filter(r=>ST(r)=="open").length;$("#s3").textContent=R.filter(r=>ST(r)=="tech").length;
-$("#qc").innerHTML=D.types.map(t=>`<button type="button" data-qt="${esc(t)}">${esc(t)}</button>`).join("");
-$("#dl").innerHTML=R.map(r=>`<div class="it"><div class="tm">${String(r.at).slice(11,16)}</div><div class="tc${ST(r)=="open"?" bd":ST(r)=="tech"?" w":""}" data-o="${esc(r.id||"")}"><b>${esc(r.type)}</b><div class="k">${r.place?esc(r.place)+" · ":""}${esc(r.by)}</div>${r.note?`<div class="k">${esc(r.note)}</div>`:""}${(r.files||[]).filter(f=>f.id).length?`<div class="fs">${r.files.map(FX).join("")}</div>`:""}<div class="ir"><span class="ch ${SC[ST(r)]}">${SL[ST(r)]}</span>${AP&&r.id?`<button class="b" data-e="${esc(r.id)}" style="min-height:40px;padding:0 14px">แก้ไข</button><button class="b" data-x="${esc(r.id)}" style="min-height:40px;padding:0 14px;color:var(--bad);border-color:var(--bad)">ลบ</button>`:""}</div></div></div>`).join("")||`<div class="emp">${DY==ymd(n)?"วันนี้ยังไม่พบปัญหา":"ไม่มีรายงานในวันนี้"}</div>`;
+$("#qc").innerHTML=D.types.slice(0,3).map(t=>`<button type="button" data-qt="${esc(t)}">${esc(t)}</button>`).join("");
+$("#dl").innerHTML=R.map(r=>`<div class="it"><div class="tm">${String(r.at).slice(11,16)}</div><div class="tc${ST(r)=="open"?" bd":ST(r)=="tech"?" w":""}" data-o="${esc(r.id||"")}"><b>${esc(r.type)}</b><div class="k">${r.place?esc(r.place)+" · ":""}${esc(r.by)}</div>${r.note?`<div class="k">${esc(r.note)}</div>`:""}${(r.files||[]).filter(f=>f.id).length?`<div class="fs">${r.files.map(FX).join("")}</div>`:""}<div class="ir"><span class="ch ${SC[ST(r)]}">${SL[ST(r)]}</span>${caseButton(r)}${AP&&r.id?`<button class="b" data-e="${esc(r.id)}" style="min-height:40px;padding:0 14px">แก้ไข</button><button class="b" data-x="${esc(r.id)}" style="min-height:40px;padding:0 14px;color:var(--bad);border-color:var(--bad)">ลบ</button>`:""}</div></div></div>`).join("")||`<div class="emp">${DY==ymd(n)?"วันนี้ยังยังไม่มีรายงาน":"ไม่มีรายงานในวันนี้"}</div>`;
 const mk=DY.slice(0,7);$("#mf").textContent=`${lab(mk)} พบปัญหา ${A.filter(r=>String(r.at).startsWith(mk)).length} ครั้ง`}
 function qr(t){nav("form");if(t){const i=[...document.querySelectorAll("#chips input")].find(x=>x.value==t);if(i)i.checked=true}}
 function wsh(k){const [y,m,d]=DY.split("-").map(Number);DY=ymd(new Date(y,m-1,d+k));rd()}
 $("#wk").onclick=e=>{const b=e.target.closest("[data-w]");if(b){DY=b.dataset.w;rd()}};$("#wp").onclick=()=>wsh(-7);$("#wn").onclick=()=>wsh(7);
-$("#qc").onclick=e=>{const b=e.target.closest("[data-qt]");if(b)qr(b.dataset.qt)};$("#cmb").onclick=()=>qr("");$("#mf").onclick=()=>nav("dash");$("#dl").onclick=e=>$("#hl").onclick(e);
+$("#qc").onclick=e=>{const b=e.target.closest("[data-qt]");if(b)qr(b.dataset.qt)};$("#cmb").onclick=()=>qr("");$("#mf").onclick=()=>{setMode("month",DY);nav("dash")};$("#dl").onclick=e=>$("#hl").onclick(e);
 const SL={open:"ยังไม่ได้แก้ไข",tech:"เรียกช่างแล้ว",done:"แก้ไขเรียบร้อย"},SC={open:"bad",tech:"warn",done:"ok"};
 function ST(r){return r.status||(r.fix=="ยังไม่ได้แก้ไข"?"open":r.fix=="เรียกช่าง"?"tech":"done")}
 let OD="",HR=0,PV="day";const nowL=()=>{const n=NOW();return `${ymd(n)}T${z(n.getHours())}:${z(n.getMinutes())}`};
 function od(id){const r=D.reports.find(x=>x.id==id);if(!r)return toast("ไม่พบรายงานนี้");const c=document.querySelector("section:not(.hide)");if(c&&c.id!="v-det")PV=c.id.slice(2);OD=id;nav("det");rdt()}
 function rdt(){const r=D.reports.find(x=>x.id==OD);if(!r)return;const s=ST(r);$("#dno").textContent=r.no||("#"+r.id);$("#dst").className="ch "+SC[s];$("#dst").textContent=SL[s];
-$("#drw").innerHTML=[["ประเภท",r.type],["ตำแหน่ง/ช่อง",r.place],["ผู้แจ้ง",r.by],["วัน-เวลาที่แจ้ง",fmt(r.at)],["วิธีแก้ตอนแจ้ง",r.fix],["รายละเอียด",r.note]].filter(x=>x[1]).map(([l,v])=>`<div class="t"><span class="k" style="width:120px;flex:none">${l}</span><span style="flex:1;min-width:0;word-break:break-word">${esc(v)}</span></div>`).join("");
+$("#drw").innerHTML=[["ประเภท",r.type],["ผลกระทบ",IMPACT[r.impact]],["ตำแหน่ง/ช่อง",r.place],["ผู้แจ้ง",r.by],["วัน-เวลาที่แจ้ง",fmt(r.at)],["วิธีแก้ตอนแจ้ง",r.fix],["รายละเอียด",r.note]].filter(x=>x[1]).map(([l,v])=>`<div class="t"><span class="k" style="width:120px;flex:none">${l}</span><span style="flex:1;min-width:0;word-break:break-word">${esc(v)}</span></div>`).join("");
 $("#dfs").innerHTML=(r.files||[]).filter(f=>f.id).map(FX).join("");
 const H=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:s,note:"แจ้งปัญหา"}];
 $("#dhs").innerHTML=[...H].reverse().map(h=>`<div class="t" style="align-items:flex-start"><div style="flex:1;min-width:0"><span class="ch ${SC[h.st]||""}">${SL[h.st]||esc(h.st)}</span><div class="k" style="margin-top:6px">${fmt(nat(h.at))} · ${esc(h.by)}${h.note?" · "+esc(h.note):""}</div></div></div>`).join("");
@@ -256,12 +580,12 @@ const lock=!!(D.cfg&&D.cfg.statusAdminOnly&&!AP);$("#dac").classList.toggle("hid
 $("#b1").disabled=s=="tech";$("#b2").disabled=s=="done";$("#b0").disabled=s=="open";if(!$("#dby").value)$("#dby").value=ls.get("by")||""}
 async function us(st){const r=D.reports.find(x=>x.id==OD);if(!r)return;const by=$("#dby").value.trim();if(!by)return toast("กรุณาใส่ชื่อผู้อัปเดต");ls.set("by",by);const bs=["#b0","#b1","#b2"].map(i=>$(i));bs.forEach(b=>b.disabled=true);
 const note=$("#dnt").value.trim(),j=await api({action:"updateStatus",id:OD,status:st,by,note,adminPin:AP});if(j.error){rdt();return toast(j.error=="admin"?"เฉพาะผู้ดูแลที่อัปเดตสถานะได้":"อัปเดตไม่สำเร็จ ลองใหม่อีกครั้ง")}
-if(API_URL){const h=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:ST(r),note:"แจ้งปัญหา"}];h.push({at:nowL(),by,st:st,note});r.history=h;r.status=st}
+if(API_URL&&j.report){Object.assign(r,j.report)}else if(API_URL){const h=r.history&&r.history.length?r.history:[{at:r.at,by:r.by,st:ST(r),note:"แจ้งปัญหา"}];h.push({at:nowL(),by,st:st,note});r.history=h;r.status=st}
 $("#dnt").value="";toast("อัปเดตสถานะแล้ว");show();load()}
 $("#b1").onclick=()=>us("tech");$("#b2").onclick=()=>us("done");$("#b0").onclick=()=>us("open");
 $("#dbk").onclick=()=>{history.replaceState(null,"",location.pathname+location.search);nav(PV)};
 window.onhashchange=()=>{HR=0;show()};
-const hlh=$("#hl").onclick;$("#hl").onclick=e=>{const o=e.target.closest("[data-o]");if(o&&o.dataset.o&&!e.target.closest("button,a")){od(o.dataset.o);return}return hlh(e)};
+const hlh=$("#hl").onclick;$("#hl").onclick=e=>{const detail=e.target.closest("[data-detail]");if(detail){od(detail.dataset.detail);return}const o=e.target.closest("[data-o]");if(o&&o.dataset.o&&!e.target.closest("button,a")){od(o.dataset.o);return}return hlh(e)};
 $("#atn").onclick=setAt;
 // ===== ส่งออก Excel (.xlsx): เขียนไฟล์เองในเบราว์เซอร์ ไม่ใช้ไลบรารีภายนอก =====
 const CRCT=(()=>{const t=new Uint32Array(256);for(let i=0;i<256;i++){let c=i;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[i]=c>>>0}return t})();
@@ -290,30 +614,34 @@ return zipX([["[Content_Types].xml",H+'<Types xmlns="http://schemas.openxmlforma
 ["xl/_rels/workbook.xml.rels",H+`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sh.map((x,i)=>`<Relationship Id="rId${i+1}" Type="${RN}/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join("")}<Relationship Id="rId${sh.length+1}" Type="${RN}/styles" Target="styles.xml"/></Relationships>`],
 ["xl/styles.xml",XST],...sh.map((x,i)=>["xl/worksheets/sheet"+(i+1)+".xml",x.xml])])}
 function xser(a){const m=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(String(a));return m?Date.UTC(+m[1],m[2]-1,+m[3],+m[4],+m[5])/864e5+25569:null}
-function xl(all){const bt=$("#ex");bt.disabled=true;bt.textContent="กำลังสร้างไฟล์…";
-try{const v=String($("#pv").value||""),R=(all?[...D.reports]:D.reports.filter(r=>String(r.at).startsWith(v))).sort((a,b)=>String(a.at)<String(b.at)?-1:1),n=R.length,cnt=k=>R.filter(r=>ST(r)==k).length,
-pl=all?"ข้อมูลทั้งหมด":`${{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]} · ${lab(v)}`,ty={};
-R.forEach(r=>{const o=ty[r.type]||(ty[r.type]={c:0,d:new Set()});o.c++;o.d.add(String(r.at).slice(0,10))});
-const bk=all?r=>String(r.at).slice(0,7):mode=="day"?r=>+String(r.at).slice(11,13):mode=="month"?r=>+String(r.at).slice(8,10):r=>+String(r.at).slice(5,7),bc={};R.forEach(r=>{const k=bk(r);bc[k]=(bc[k]||0)+1});
+function xl(all,summaryOnly=false){if(!all&&!period())return;const bt=$("#ex");bt.disabled=true;bt.textContent="กำลังสร้างไฟล์…";
+try{const v=period(),R=(all?[...D.reports]:D.reports.filter(r=>String(r.at).startsWith(v))).sort((a,b)=>String(a.at)<String(b.at)?-1:1),n=R.length,cnt=k=>R.filter(r=>ST(r)==k).length,
+pl=all?"ข้อมูลทั้งหมด":`${{day:"รายวัน",month:"รายเดือน",year:"รายปี"}[mode]} · ${lab(v)}`;
+const bk=all?r=>String(r.at).slice(0,7):mode=="day"?r=>+String(r.at).slice(11,13):mode=="month"?r=>+String(r.at).slice(8,10):r=>+String(r.at).slice(5,7),bc=Object.create(null);R.forEach(r=>{const k=bk(r);bc[k]=(bc[k]||0)+1});
 const [vy,vm]=v.split("-").map(Number),keys=all?Object.keys(bc).sort():mode=="day"?[...Array(24).keys()]:mode=="month"?[...Array(new Date(vy,vm,0).getDate()).keys()].map(i=>i+1):[...Array(12).keys()].map(i=>i+1),
 bl=k=>all?`${TH[+String(k).slice(5)-1]} ${+String(k).slice(0,4)+543}`:mode=="day"?`${k}:00 น.`:mode=="month"?`${k} ${TH[vm-1]}`:TH[k-1],
 bt2=all?"เดือน":mode=="day"?"ชั่วโมง":mode=="month"?"วันที่":"เดือน";
 const sum=[[["รายงานสรุปปัญหาหุ่นยนต์จ่ายยา ห้องจ่ายยา OPD โรงพยาบาลนครนายก",2]],[["ช่วงเวลา",3],pl],[["สร้างเมื่อ",3],fmt(nowL())+" น. (เวลากรุงเทพ)"],[],
 [["ตัวชี้วัด",1],["จำนวน (ครั้ง)",1]],[["ปัญหาทั้งหมด",8],[n,7]],[["แก้ไขเรียบร้อย",4],[cnt("done"),7]],[["ยังไม่ได้แก้ไข",4],[cnt("open"),7]],[["เรียกช่างแล้ว (รอ Service)",4],[cnt("tech"),7]],[],
-[["ประเภทปัญหา",1],["จำนวน (ครั้ง)",1],["สัดส่วน",1],["จำนวนวันที่เกิด",1]],...Object.entries(ty).sort((a,b)=>b[1].c-a[1].c).map(([t,o])=>[[t,4],[o.c,7],[n?o.c/n:0,6],[o.d.size,7]]),[],
+[["ประเภทปัญหา",1],["จำนวน (ครั้ง)",1],["สัดส่วน",1],["จำนวนวันที่เกิด",1]],...countsByType(R).map(([t,o])=>[[t,4],[o.count,7],[n?o.count/n:0,6],[o.dates.size,7]]),[],
 [[bt2,1],["จำนวน (ครั้ง)",1]],...keys.map(k=>[[bl(k),4],[bc[k]||0,7]])];
-const head=["เลขที่รายงาน","วัน-เวลา (พ.ศ.)","วัน-เวลา (สำหรับเรียงลำดับ)","ผู้แจ้ง","ประเภทปัญหา","ตำแหน่ง/ช่อง","วิธีแก้ตอนแจ้ง","สถานะปัจจุบัน","รายละเอียด","อัปเดตล่าสุดโดย","อัปเดตล่าสุดเมื่อ (พ.ศ.)","ไฟล์แนบ 1","ไฟล์แนบ 2","ไฟล์แนบ 3"].map(x=>[x,1]);
-const rows=[head,...R.map(r=>{const hh=r.history||[],lu=hh.length>1?hh[hh.length-1]:null,fl=(r.files||[]).filter(f=>f.id);return [[r.no||(r.id?"#"+r.id:""),4],[fmt(r.at),4],[xser(r.at),5],[r.by,4],[r.type,4],[r.place||"",4],[r.fix||"",4],[SL[ST(r)],4],[r.note||"",4],[lu?lu.by:"",4],[lu?fmt(nat(lu.at)):"",4],...[0,1,2].map(i=>fl[i]?[{f:`HYPERLINK("https://drive.google.com/file/d/${fl[i].id}/view","ดูไฟล์")`,v:"ดูไฟล์"},9]:["",4])]})];
-const blob=xlsx([{name:"สรุป",xml:xsheet(sum,[38,18,14,18],{first:1})},{name:"รายงาน",xml:xsheet(rows,[18,20,22,18,32,16,18,18,40,18,22,12,12,12],{freeze:1,filter:"A1:N"+rows.length})}]),
-a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="รายงานปัญหาหุ่นยนต์จ่ายยา_"+(all?"ทั้งหมด":lab(v).replace(/\s+/g,"-"))+".xlsx";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);toast("บันทึกไฟล์ Excel แล้ว")}
+const head=["เลขที่รายงาน","วัน-เวลา (พ.ศ.)","วัน-เวลา (สำหรับเรียงลำดับ)","ผู้แจ้ง","ประเภทปัญหา","ตำแหน่ง/ช่อง","วิธีแก้ตอนแจ้ง","สถานะปัจจุบัน","รายละเอียด","อัปเดตล่าสุดโดย","อัปเดตล่าสุดเมื่อ (พ.ศ.)","ไฟล์แนบ 1","ไฟล์แนบ 2","ไฟล์แนบ 3","ผลกระทบต่อการจ่ายยา"].map(x=>[x,1]);
+const rows=[head,...R.map(r=>{const hh=r.history||[],lu=hh.length>1?hh[hh.length-1]:null,fl=(r.files||[]).filter(f=>f.id);return [[r.no||(r.id?"#"+r.id:""),4],[fmt(r.at),4],[xser(r.at),5],[r.by,4],[r.type,4],[r.place||"",4],[r.fix||"",4],[SL[ST(r)],4],[r.note||"",4],[lu?lu.by:"",4],[lu?fmt(nat(lu.at)):"",4],...[0,1,2].map(i=>fl[i]?[{f:`HYPERLINK("https://drive.google.com/file/d/${fl[i].id}/view","ดูไฟล์")`,v:"ดูไฟล์"},9]:["",4]),[IMPACT[r.impact]||"",4]]})];
+const sheets=[{name:"สรุป",xml:xsheet(sum,[38,24,14,18],{first:1})}];
+if(!summaryOnly)sheets.push({name:"รายงาน",xml:xsheet(rows,[18,20,22,18,32,16,18,18,40,18,22,12,12,12,23],{freeze:1,filter:"A1:O"+rows.length})});
+const blob=xlsx(sheets),
+a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(summaryOnly?"สรุปสำหรับแชร์_":"รายงานปัญหาหุ่นยนต์จ่ายยา_")+(all?"ทั้งหมด":lab(v).replace(/\s+/g,"-"))+".xlsx";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);toast("บันทึกไฟล์ Excel แล้ว")}
 catch(e){toast("สร้างไฟล์ Excel ไม่สำเร็จ: "+(e&&e.message||e))}
 bt.disabled=false;bt.textContent="ส่งออก ▾"}
 function closeX(){const m=$("#exm"),b=$("#ex");if(m)m.classList.add("hide");if(b)b.setAttribute("aria-expanded","false")}
 $("#ex").onclick=e=>{e.stopPropagation();const m=$("#exm"),o=m.classList.contains("hide");m.classList.toggle("hide",!o);$("#ex").setAttribute("aria-expanded",o?"true":"false");if(o)$("#exp").focus()};
-$("#exp").onclick=()=>{closeX();pdf()};$("#exx").onclick=()=>{closeX();xl(false)};$("#exa").onclick=()=>{closeX();xl(true)};
-document.addEventListener("click",e=>{if(!e.target.closest(".xw"))closeX()});document.addEventListener("keydown",e=>{if(e.key=="Escape")closeX()});
+$("#exp").onclick=()=>{closeX();pdf()};$("#exs").onclick=()=>{closeX();xl(false,true)};$("#exx").onclick=()=>{closeX();xl(false)};$("#exa").onclick=()=>{closeX();xl(true)};
+document.addEventListener("click",e=>{if(!e.target.closest(".xw"))closeX()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){
+if(!$("#exm").classList.contains("hide")){$("#ex").focus();closeX()}
+
+}});
 setMode("month");nav("day");ra();$("#nw").onclick=()=>nav("form");
-if(!API_URL)$("#cfg").classList.remove("hide");(async()=>{if(!API_URL){S.pin="x";await load()}else if(S.pin){await fast();await load()}})();
+if(!API_URL){$("#cfg").classList.remove("hide");load()}else{lockUI(true);$("#pin").focus()}
 </script>
 <script>const LOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAMAAABlApw1AAACf1BMVEWd16dipaSf12Ulo6Hc3NJe0ttWb5YYUrQtndJNa8tlrdYZXNf6oaANJrDz4qn0YFuao7VlxVg0x+WNzzAxTXJpya2f7vD90Wufouf4KCgPoTwJIksWp3EexpJJtHRiviTwkln4jiJIWXXCvPYUOsRbwBoAfDIdwXbxSiwMIT2xXGH8/f7////U5/UCp+cBVs/H2/CqyeYCiNYCZ8/k7Pa11e4Cdu8CmOcDldkCp6yOt9oCmZECuMgEtO1txCZ1xRUDtrYDd9SWxegBaepomMgCwsYCqNNPui8EhvOCyRd0ps8AScsCiKkQRHhNxvOQ1vERpU8GmFC05fHW8vQIOGvN6dNtyO1w1vUVV5CRuucFJ1IDmm4EmK8vuO0xdLM4szdMue1Tibj5AQEvp+koq0kwZZiKqdPo9NVwtu2t285Qpu0nWYusuOYDebEuds0QS4RHeaxVls3IyPAADDAva6UtqG1JvExvp+ySxNesudEAEzp1h9A0skdQh9BmeM0xuW5Nme0LZbGN19UHJrFckb2Op+SwxNe149NcwDLP6rFLp9CO0hIOMlsvle4tiO4qrDqPmaq34Y4ALGNTuxoCi0YUtJMoac5w1dXG55b42NcPomluxJeKmNiV006Q6NYAiTkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADsvCNSAAAAoHRSTlP//////////////////////////////////////////////////////////wD/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////LKuoRQAAJgdJREFUeNrFnYlfE8nW9zskIQFEkVHH3bmzPM/zvvUUdJNuApEtIaKi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";document.querySelectorAll("[data-logo]").forEach(i=>i.src=LOGO);document.head.insertAdjacentHTML("beforeend",'<link rel="icon" href="'+LOGO+'">')</script><script id="l1" type="text/plain">/*!
  * html2canvas 1.4.1 <https://html2canvas.hertzen.com>
