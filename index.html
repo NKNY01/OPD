@@ -214,7 +214,7 @@ body.pdfm { background-image:none }
 <div id="cfg" class="c noprint hide">โหมดตัวอย่าง: ยังไม่ได้ใส่ลิงก์ Apps Script (ข้อมูลที่เห็นเป็นข้อมูลสุ่ม)</div>
 <section id="v-day" class="hide">
 <div class="c hide" id="saveResult" role="status"><b>บันทึกรายงานแล้ว</b><span id="savedNo"></span><button type="button" class="b p" id="viewSaved">ดูสถานะ</button></div>
-<div class="c cm"><button type="button" class="b p" id="cmb">＋ แจ้งปัญหาเครื่อง</button><div class="q" id="qc"></div></div>
+<div class="c cm"><button type="button" class="b p" id="cmb">＋ แจ้งปัญหาเครื่อง</button></div>
 <div class="c" id="pendingOverview"><h2>ยังไม่ปิดเคส <span id="pendingCount"></span></h2><div id="pendingPreview"></div><button type="button" class="b" id="openPending">ติดตามเคสค้าง ›</button></div>
 <div class="dh"><div><div class="k">รายการของวัน</div><h2 id="dtt"></h2></div><div class="wa"><button class="b ic" id="wp" aria-label="สัปดาห์ก่อนหน้า">‹</button><button class="b ic" id="wn" aria-label="สัปดาห์ถัดไป">›</button></div></div>
 <div class="wk" id="wk"></div>
@@ -560,13 +560,11 @@ $("#dtt").textContent=`${DN[cur.getDay()]} ${d} ${TH[m-1]} ${y+543}`;
 $("#wk").innerHTML=[0,1,2,3,4,5,6].map(i=>{const x=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i),k=ymd(x);return `<button data-w="${k}" class="${k==DY?"on":""}" aria-label="${x.getDate()} ${TH[x.getMonth()]}"><small>${["จ","อ","พ","พฤ","ศ","ส","อา"][i]}</small><b>${x.getDate()}</b><i class="${has(k)?"":"o"}"></i></button>`}).join("");
 const R=A.filter(r=>String(r.at).startsWith(DY)).sort((a,b)=>String(b.at)<String(a.at)?-1:1);
 $("#s1").textContent=R.length;$("#s2").textContent=R.filter(r=>ST(r)=="open").length;$("#s3").textContent=R.filter(r=>ST(r)=="tech").length;
-$("#qc").innerHTML=D.types.slice(0,3).map(t=>`<button type="button" data-qt="${esc(t)}">${esc(t)}</button>`).join("");
 $("#dl").innerHTML=R.map(r=>`<div class="it"><div class="tm">${String(r.at).slice(11,16)}</div><div class="tc${ST(r)=="open"?" bd":ST(r)=="tech"?" w":""}" data-o="${esc(r.id||"")}"><b>${esc(r.type)}</b><div class="k">${r.place?esc(r.place)+" · ":""}${esc(r.by)}</div>${r.note?`<div class="k">${esc(r.note)}</div>`:""}${(r.files||[]).filter(f=>f.id).length?`<div class="fs">${r.files.map(FX).join("")}</div>`:""}<div class="ir"><span class="ch ${SC[ST(r)]}">${SL[ST(r)]}</span>${caseButton(r)}${AP&&r.id?`<button class="b" data-e="${esc(r.id)}" style="min-height:40px;padding:0 14px">แก้ไข</button><button class="b" data-x="${esc(r.id)}" style="min-height:40px;padding:0 14px;color:var(--bad);border-color:var(--bad)">ลบ</button>`:""}</div></div></div>`).join("")||`<div class="emp">${DY==ymd(n)?"วันนี้ยังยังไม่มีรายงาน":"ไม่มีรายงานในวันนี้"}</div>`;
 const mk=DY.slice(0,7);$("#mf").textContent=`${lab(mk)} พบปัญหา ${A.filter(r=>String(r.at).startsWith(mk)).length} ครั้ง`}
-function qr(t){nav("form");if(t){const i=[...document.querySelectorAll("#chips input")].find(x=>x.value==t);if(i)i.checked=true}}
 function wsh(k){const [y,m,d]=DY.split("-").map(Number);DY=ymd(new Date(y,m-1,d+k));rd()}
 $("#wk").onclick=e=>{const b=e.target.closest("[data-w]");if(b){DY=b.dataset.w;rd()}};$("#wp").onclick=()=>wsh(-7);$("#wn").onclick=()=>wsh(7);
-$("#qc").onclick=e=>{const b=e.target.closest("[data-qt]");if(b)qr(b.dataset.qt)};$("#cmb").onclick=()=>qr("");$("#mf").onclick=()=>{setMode("month",DY);nav("dash")};$("#dl").onclick=e=>$("#hl").onclick(e);
+$("#cmb").onclick=()=>nav("form");$("#mf").onclick=()=>{setMode("month",DY);nav("dash")};$("#dl").onclick=e=>$("#hl").onclick(e);
 const SL={open:"ยังไม่ได้แก้ไข",tech:"เรียกช่างแล้ว",done:"แก้ไขเรียบร้อย"},SC={open:"bad",tech:"warn",done:"ok"};
 function ST(r){return r.status||(r.fix=="ยังไม่ได้แก้ไข"?"open":r.fix=="เรียกช่าง"?"tech":"done")}
 let OD="",HR=0,PV="day";const nowL=()=>{const n=NOW();return `${ymd(n)}T${z(n.getHours())}:${z(n.getMinutes())}`};
