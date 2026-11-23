@@ -206,6 +206,20 @@ body.pdfm { background-image:none }
   *,*::before,*::after { animation:none!important; transition:none!important }
 }
 
+/* Keep the native date/time field inside the report form on iOS. */
+#at {
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+  max-width:100%;
+  -webkit-appearance:none;
+  appearance:none;
+}
+#at::-webkit-date-and-time-value {
+  min-width:0;
+  text-align:left;
+}
 </style></head><body>
 <div id="lock" class="ov"><form id="lf" class="c"><img data-logo class="lgi" width="96" height="96" alt="โลโก้โรงพยาบาลนครนายก" style="display:block;margin:0 auto 10px"><b style="font-size:18px">ห้องจ่ายยา OPD รพ.นครนายก</b><label class="l" for="pin">รหัส PIN</label><input id="pin" type="password" autocomplete="off" required><div id="pe" role="alert" class="k" style="color:var(--bad);margin:8px 0"></div><button class="b p" style="width:100%">เข้าใช้งาน</button></form></div>
 <nav id="nav" class="noprint"></nav>
